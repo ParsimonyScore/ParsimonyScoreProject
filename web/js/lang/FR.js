@@ -27,6 +27,7 @@ var lang ={
 
 			"loginForm" : {
 				"title" : "S'identifier",
+				"submit" : "Envoyer",
 				"placeholders" : {
 					"username" : "Login", 
 					"password" : "Mot de passe"

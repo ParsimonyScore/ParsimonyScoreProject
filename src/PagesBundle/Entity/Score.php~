@@ -115,7 +115,7 @@ class Score
 	/**
      * @var string
      *
-     * @ORM\Column(name="file_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="file_name", type="string", length=50)
      */
     private $file_name;
 	
@@ -429,27 +429,4 @@ class Score
         return $this->nb;
     }
 
-
-    /**
-     * Set file_name
-     *
-     * @param string $fileName
-     * @return Score
-     */
-    public function setFileName($fileName)
-    {
-        $this->file_name = $fileName;
-    
-        return $this;
-    }
-
-    /**
-     * Get file_name
-     *
-     * @return string 
-     */
-    public function getFileName()
-    {
-        return $this->file_name;
-    }
 }

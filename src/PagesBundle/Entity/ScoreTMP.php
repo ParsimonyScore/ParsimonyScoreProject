@@ -5,12 +5,12 @@ namespace PagesBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Score
+ * ScoreTMP
  *
- * @ORM\Table(name="score")
- * @ORM\Entity(repositoryClass="PagesBundle\Repository\ScoreRepository")
+ * @ORM\Table(name="score_t_m_p")
+ * @ORM\Entity(repositoryClass="PagesBundle\Repository\ScoreTMPRepository")
  */
-class Score
+class ScoreTMP
 {
     /**
      * @var int
@@ -21,7 +21,7 @@ class Score
      */
     private $id;
 
-    /**
+	/**
      * @var string
      *
      * @ORM\Column(name="problem", type="string", length=50)
@@ -31,95 +31,94 @@ class Score
     /**
      * @var int
      *
-     * @ORM\Column(name="k", type="integer")
+     * @ORM\Column(name="k", type="integer", nullable=true)
      */
     private $k;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="l", type="integer")
+     * @ORM\Column(name="l", type="integer", nullable=true)
      */
     private $l;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="r", type="integer")
+     * @ORM\Column(name="r", type="integer", nullable=true)
      */
     private $r;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="n", type="integer")
+     * @ORM\Column(name="n", type="integer", nullable=true)
      */
     private $n;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="g", type="integer")
+     * @ORM\Column(name="g", type="integer", nullable=true)
      */
     private $g;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="b", type="integer")
+     * @ORM\Column(name="b", type="integer", nullable=true)
      */
     private $b;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="s", type="integer")
+     * @ORM\Column(name="s", type="integer", nullable=true)
      */
     private $s;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="rn", type="integer")
+     * @ORM\Column(name="rn", type="integer", nullable=true)
      */
     private $rn;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="rg", type="integer")
+     * @ORM\Column(name="rg", type="integer", nullable=true)
      */
     private $rg;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="rb", type="integer")
+     * @ORM\Column(name="rb", type="integer", nullable=true)
      */
     private $rb;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="rnb", type="integer")
+     * @ORM\Column(name="rnb", type="integer", nullable=true)
      */
     private $rnb;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb", type="integer")
+     * @ORM\Column(name="nb", type="integer", nullable=true)
      */
     private $nb;
 
 	/**
      * @var string
      *
-     * @ORM\Column(name="file_name", type="string", length=50, nullable=true)
+     * @ORM\Column(name="file_name", type="string", length=50)
      */
     private $file_name;
 	
-
     /**
      * Get id
      *
@@ -134,7 +133,7 @@ class Score
      * Set problem
      *
      * @param string $problem
-     * @return Score
+     * @return ScoreTMP
      */
     public function setProblem($problem)
     {
@@ -157,7 +156,7 @@ class Score
      * Set k
      *
      * @param integer $k
-     * @return Score
+     * @return ScoreTMP
      */
     public function setK($k)
     {
@@ -180,7 +179,7 @@ class Score
      * Set l
      *
      * @param integer $l
-     * @return Score
+     * @return ScoreTMP
      */
     public function setL($l)
     {
@@ -203,7 +202,7 @@ class Score
      * Set r
      *
      * @param integer $r
-     * @return Score
+     * @return ScoreTMP
      */
     public function setR($r)
     {
@@ -226,7 +225,7 @@ class Score
      * Set n
      *
      * @param integer $n
-     * @return Score
+     * @return ScoreTMP
      */
     public function setN($n)
     {
@@ -249,7 +248,7 @@ class Score
      * Set g
      *
      * @param integer $g
-     * @return Score
+     * @return ScoreTMP
      */
     public function setG($g)
     {
@@ -272,7 +271,7 @@ class Score
      * Set b
      *
      * @param integer $b
-     * @return Score
+     * @return ScoreTMP
      */
     public function setB($b)
     {
@@ -295,7 +294,7 @@ class Score
      * Set s
      *
      * @param integer $s
-     * @return Score
+     * @return ScoreTMP
      */
     public function setS($s)
     {
@@ -318,7 +317,7 @@ class Score
      * Set rn
      *
      * @param integer $rn
-     * @return Score
+     * @return ScoreTMP
      */
     public function setRn($rn)
     {
@@ -341,7 +340,7 @@ class Score
      * Set rg
      *
      * @param integer $rg
-     * @return Score
+     * @return ScoreTMP
      */
     public function setRg($rg)
     {
@@ -364,7 +363,7 @@ class Score
      * Set rb
      *
      * @param integer $rb
-     * @return Score
+     * @return ScoreTMP
      */
     public function setRb($rb)
     {
@@ -387,7 +386,7 @@ class Score
      * Set rnb
      *
      * @param integer $rnb
-     * @return Score
+     * @return ScoreTMP
      */
     public function setRnb($rnb)
     {
@@ -410,7 +409,7 @@ class Score
      * Set nb
      *
      * @param integer $nb
-     * @return Score
+     * @return ScoreTMP
      */
     public function setNb($nb)
     {
@@ -434,7 +433,7 @@ class Score
      * Set file_name
      *
      * @param string $fileName
-     * @return Score
+     * @return ScoreTMP
      */
     public function setFileName($fileName)
     {

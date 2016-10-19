@@ -27,6 +27,7 @@ var lang ={
 
 			"loginForm" : {
 				"title" : "Log in",
+				"submit" : "Submit",
 				"placeholders" : {
 					"username" : "Username", 
 					"password" : "Password"
