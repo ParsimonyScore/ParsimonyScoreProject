@@ -1,0 +1,59 @@
+{% extends "PagesBundle:Default:index.html.twig" %}
+
+{% block content %}
+
+<div class="right_col" role="main">
+ <div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="x_panel">
+		  <div class="x_title">
+			<h2 id="contactForm_title"></h2>
+			<div class="clearfix"></div>
+		  </div>
+		  <div class="x_content">
+			  {% if error is defined %}
+				 <div class="alert alert-danger alert-dismissible fade in" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+					</button>
+					<strong> <script> document.write(lang.pages.contactForm.error) </script> </strong> [ {{ error }} ]
+				  </div>
+			  {% endif %}
+			  
+			  {% if success is defined %}
+				  <div class="alert alert-success alert-dismissible fade in" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+					</button>
+					<strong> <script> document.write(lang.pages.contactForm.success) </script> </strong> 
+				  </div>
+			  {% endif %}
+			  
+			<form id="contactForm" action="{{ path('pages_contact') }}" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left" >
+			  <div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" id="contactForm_email" for="id_email"><span class="required">*</span>
+				</label>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+				  <input type="email" id="id_email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+				</div>
+			  </div>	
+			  <div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" id="contactForm_msg" for="id_msg"><span class="required">*</span>
+				</label>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+				  <textarea id="id_msg" name="msg" rows="12" required="required" class="form-control"></textarea>
+				</div>
+			  </div>
+			  
+			  <div class="ln_solid"></div>
+			  <div class="form-group">
+				<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+				  <button type="submit" class="btn btn-success" id="contactForm_submit"></button>
+				</div>
+			  </div>
+			</form>
+		  </div>
+		</div>
+	</div>
+ </div>
+</div>
+
+{% endblock %}
