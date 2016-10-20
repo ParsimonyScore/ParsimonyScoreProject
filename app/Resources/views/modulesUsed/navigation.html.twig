@@ -1,0 +1,34 @@
+<div class="navbar nav_title" style="border: 0;">   
+	<a href="" class="site_title"><i class="fa fa-tree"></i> <span>ParsimonyScore</span></a>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+  <div class="menu_section">
+    <ul class="nav side-menu" id="id_gest_menu" >
+
+	{% if not app.user   %}
+	    <li><a href="{{ path('pages_index') }}" ><i class="fa fa-home"></i></a></li>
+	    <li><a href="{{ path('pages_about') }}" ><i class="fa fa-info"></i></a></li>
+	    <li><a href="{{ path('pages_contact') }}" ><i class="fa fa-envelope"></i></a></li>
+	{% else %}
+		<li>
+			<a><i class="fa fa-gears"></i> Conf <span class="fa fa-chevron-down"></span></a>
+		    <ul class="nav child_menu">
+		      <li><a href="{{path('fos_user_profile_edit')}}">Profile</a></li>
+		      <li><a href="{{path('fos_user_change_password')}}">Pass</a></li>
+		    </ul>
+		</li>
+		<li><a href="{{path('fos_user_profile_show')}}"><i class="fa fa-child"></i>Profile</a></li>
+		
+		{% include '::modulesUsed/header_options/options.html.twig' %}
+
+		<li><a href="{{path('fos_user_security_logout')}}"><i class="fa fa-power-off"></i>Deconnexion</a></li>
+	{% endif %}
+
+	</ul>
+  </div>
+</div>
+
+

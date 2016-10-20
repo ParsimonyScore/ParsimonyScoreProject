@@ -1,0 +1,50 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<div>
+  <a class="hiddenanchor" id="signup"></a>
+  <a class="hiddenanchor" id="signin"></a>
+
+     
+  <div class="login_wrapper" style="margin-top:0%">
+    <div class="animate form login_form">
+      <section class="login_content">
+        {% for message in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger alert-dismissable">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+        
+
+        <form id="loginForm" action="{{ path("fos_user_security_check") }}" method="post">
+            {% if csrf_token %}
+                <input id="loginForm_title" type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            {% endif %}
+
+            <label for="username">{{ 'security.login.username'|trans }}</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+            <label for="password">{{ 'security.login.password'|trans }}</label>
+            <input type="password" id="password" name="_password" required="required" />
+            <div align="left">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+            </div>
+            <div align="center">
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </div>
+            <div class="clearfix"></div>
+            <div>
+              <h1><i class="fa fa-tree"></i> <span>ParsimonyScore</span><br/>
+              <p id="id_footer" style="font-size: 12pt;margin-top: 6px;"></p>
+            </div>
+        </form>
+      </section>
+    </div>
+  </div>
+
+</div>
+ 

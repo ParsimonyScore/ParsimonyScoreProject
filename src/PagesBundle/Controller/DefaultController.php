@@ -83,20 +83,6 @@ class DefaultController extends Controller
 			return $this->render('PagesBundle:Default:index.html.twig');			
 		}
     }
-
-    /**
-     * @Route("/menu")
-     */	
-	public function menuAction(Request $request) {
-		return $this->render('PagesBundle:Default:menu.html.twig');
-	}
-	
-	/**
-     * @Route("/login", name="pages_cnx")
-     */	
-	public function loginAction(Request $request) {
-		return $this->render('PagesBundle:Default:login.html.twig');
-	}
 	
 	/**
      * @Route("/contact", name="pages_contact")

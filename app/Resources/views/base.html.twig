@@ -2,12 +2,38 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% include '::Global/global_css.html.twig' %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+                        {% include '::modulesUsed/navigation.html.twig' %}
+                    </div>
+                </div>
+                
+                {% include '::modulesUsed/header.html.twig' %}
+                
+                <div class="right_col" role="main">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            {% block body %}{% endblock %}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                {% include '::modulesUsed/footer.html.twig' %}
+
+
+                {% block javascripts %}{% endblock %}
+                {% include '::Global/global_js.html.twig' %}
+            </div>
+        </div>
     </body>
 </html>

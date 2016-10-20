@@ -1,0 +1,11 @@
+<!-- footer content -->
+<footer>
+	{% if app.user == false  %}
+  		<a id="id_cnx" href="{{ path('fos_user_security_login') }}" style="font-size: 8pt;" > Connexion </a>
+	{% endif %}
+
+  <div class="pull-right" id="id_footer"> 
+  </div>
+  <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->
