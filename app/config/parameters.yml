@@ -5,8 +5,11 @@ parameters:
     database_name: ParsimonyScore
     database_user: root
     database_password: null
+    
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_encryption: ssl
+    mailer_host: smtp.gmail.com
+    mailer_user: zakariae.ziko.lahyani@gmail.com
+    mailer_password: Root.ziko
+    
     secret: 762b3282f343feac2e5d489bc9dddc9ee48e582a
