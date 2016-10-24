@@ -1,4 +1,4 @@
 {% if is_granted('ROLE_ADMIN') %}
-  <li><a href="{{path('fos_user_registration_register')}}"><i class="fa fa-magnet"></i>Add user</a></li>
-  <li><a href="{{path('admin_admin_list')}}"><i class="fa fa-users"></i>list users</a></li>
+  <li id="li_super_admin" ><a href="{{path('fos_user_registration_register')}}"><i class="fa fa-magnet"></i></a></li>
+  <li><a href="{{path('admin_admin_list')}}"><i class="fa fa-users"></i></a></li>
 {% endif %}

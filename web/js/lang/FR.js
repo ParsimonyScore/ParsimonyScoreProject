@@ -7,7 +7,24 @@ var lang ={
 		
 		"menu" : {
 				"gest" : [ "Accueil", "À propos", "Contactez-nous" ],
-				"admin" : ["Accueil"]
+				"admin" : [ "Accueil","","Profile","Mot de passe","Profile", "Liste des scores", "Liste des scores temporaire", "Déconnexion"],
+				"super_admin" : [ "Accueil","","Profile","Mot de passe","Profile","Ajouter un utilisateur", "Liste des utilisateurs ", "Liste des scores", "Liste des scores temporaire", "Déconnexion"]
+		},
+		
+		"tables" : {
+			"scoreTmp" : {
+				"title": "",
+				"th" : ["Problème","K","L","R","N","G","B","S","RN","RG","RB","NB","NG","GB","Fichier de données"],
+				"disc" : ["K : nombre de séquences", "L : longeur de séquence", "", "","","","","","","","","","","" ],
+				"options" : {
+					"accept" : "Ajouter le score",
+					"remove" : "Supprimer"
+				},
+				"messages" : {
+					"accept" : "Etes-vous sur de vouloir ajouter le score",
+					"remove" : "Etes-vous sur de vouloir supprimer le score"
+				}
+			}
 		},
 		
 		"pages" : {
@@ -48,11 +65,15 @@ var lang ={
 				"submit" : "Envoyer",
 				"error" : "Une erreur s'est produite veuillez réessayer ultérieurement",
 				"success" : "Message envoyé"
+			},
+			
+			"fileContent" : {
+				"download" : "Télécharger",
+				"close" : "Fermer"
 			}
 		}
 
 };
-
 
 
 

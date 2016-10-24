@@ -5,6 +5,8 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         {% include '::Global/global_css.html.twig' %}
+		{% include '::Global/js_onready.html.twig' %}
+		{% block onready %}{% endblock %}
     </head>
     
     <body class="nav-md">

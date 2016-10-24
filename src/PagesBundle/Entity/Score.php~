@@ -98,24 +98,32 @@ class Score
      */
     private $rb;
 
-    /**
+   /**
      * @var int
      *
-     * @ORM\Column(name="rnb", type="integer")
+     * @ORM\Column(name="nb", type="integer", nullable=true)
      */
-    private $rnb;
+    private $nb;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb", type="integer")
+     * @ORM\Column(name="ng", type="integer", nullable=true)
      */
-    private $nb;
+    private $ng;
+	
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="gb", type="integer", nullable=true)
+     */
+    private $gb;
+
 
 	/**
      * @var string
      *
-     * @ORM\Column(name="file_name", type="string", length=50)
+     * @ORM\Column(name="file_name", type="string", length=50, nullable=true)
      */
     private $file_name;
 	
@@ -383,28 +391,6 @@ class Score
         return $this->rb;
     }
 
-    /**
-     * Set rnb
-     *
-     * @param integer $rnb
-     * @return Score
-     */
-    public function setRnb($rnb)
-    {
-        $this->rnb = $rnb;
-    
-        return $this;
-    }
-
-    /**
-     * Get rnb
-     *
-     * @return integer 
-     */
-    public function getRnb()
-    {
-        return $this->rnb;
-    }
 
     /**
      * Set nb
@@ -429,4 +415,27 @@ class Score
         return $this->nb;
     }
 
+
+    /**
+     * Set file_name
+     *
+     * @param string $fileName
+     * @return Score
+     */
+    public function setFileName($fileName)
+    {
+        $this->file_name = $fileName;
+    
+        return $this;
+    }
+
+    /**
+     * Get file_name
+     *
+     * @return string 
+     */
+    public function getFileName()
+    {
+        return $this->file_name;
+    }
 }

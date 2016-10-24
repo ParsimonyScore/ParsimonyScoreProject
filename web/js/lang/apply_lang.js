@@ -1,6 +1,5 @@
 
 /*
-	author : Ismail ELFAQIR
 	function to applying the language chosen by the user
 */
 
@@ -11,15 +10,19 @@ function apply_lang(){
 		if(document.getElementById("id_"+x)!=null) $("#id_"+x).text(lang.default[x]);
 	}
 	// set up the menu 
-	var menu="";
-	if(document.getElementById("id_gest_menu") != null ) menu = "id_gest_menu";
-	else if(document.getElementById("id_admin_menu") != null ) menu = "id_admin_menu";
 	
-	if(menu!="") {
-		var li= document.getElementById(menu).getElementsByTagName("li");
-		for(var i=0;i<li.length;i++) {
-			li[i].getElementsByTagName("a")[0].innerHTML+=lang.menu.gest[i];
-		}			
+	if(document.getElementById("id_menu")!=null) { 
+		var li= document.getElementById("id_menu").getElementsByTagName("li"); //fa-chevron-down
+		var menu;
+		if(li.length== lang.menu.gest.length) menu=lang.menu.gest;
+		else if(li.length== lang.menu.admin.length) menu=lang.menu.admin;
+		else if(li.length== lang.menu.super_admin.length) menu=lang.menu.super_admin;
+		if(menu !=null) {
+			for(var i=0;i<li.length;i++) {		
+				li[i].getElementsByTagName("a")[0].innerHTML+=menu[i];
+			}			
+		}
+			
 	}
 	// pages
 	for (f in lang.pages) {
@@ -33,5 +36,16 @@ function apply_lang(){
 				else $("#"+f+"_"+x).text(lang.pages[f][x]);
 			}
 		}		
+	}
+	
+	// tables 
+	
+	for(t in lang.tables) {
+		if(document.getElementById("table_"+t) != null) {
+			var th= document.getElementById("table_"+t).getElementsByTagName("th");
+			for(i=0;i<th.length-1;i++) {
+				th[i].innerHTML=lang.tables[t].th[i];
+			}
+		}
 	}
 }

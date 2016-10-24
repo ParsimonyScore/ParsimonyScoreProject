@@ -1,16 +1,4 @@
-{% extends "::base.html.twig" %}
-
-
-{% block javascripts %}
-	<script>
-		$( document ).ready(function() {
-			apply_lang();
-			{% block onready %}
-			{% endblock %}
-		});	
-	</script>
-{% endblock %}	
-	
+{% extends "::base.html.twig" %}	
 
   {% block body %}			
 						  <div class="x_title">
@@ -34,7 +22,7 @@
 							  </div>
 						  {% endif %}
 						  
-							<form id="addScoreFrom" action="{{ path('pages_index') }}" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left" >
+							<form id="addScoreFrom" action="{{ path('pages_addScore') }}" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left" >
 							  <div class="form-group">
 								<label class="control-label col-md-3 col-sm-3 col-xs-12" id="addScoreFrom_problem" for="id_problem"><span class="required">*</span>
 								</label>

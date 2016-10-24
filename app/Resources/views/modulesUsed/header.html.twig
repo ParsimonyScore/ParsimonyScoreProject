@@ -8,7 +8,9 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="">
           <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            {% if app.session.get('ParsimonyScore_lang') != null %}
+			{% if app.request.cookies.has('ParsimonyScore_lang') != null%} 
+				{{ app.request.cookies.get('ParsimonyScore_lang') }}
+            {% elseif app.session.get('ParsimonyScore_lang') != null %}
                 {{ app.session.get('ParsimonyScore_lang') }}
             {% else %}
                 FR
@@ -16,15 +18,15 @@
             <span class=" fa fa-angle-down"></span>
           </a>
 
-          {% if app.user  %}
-            {% include '::modulesUsed/header_options/notification.html.twig' %}
-          {% endif %}
-
           <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="{{ path('pages_index') }}?lang=FR">FR</a></li>
             <li><a href="{{ path('pages_index') }}?lang=EN">EN</a></li>
           </ul>
         </li>
+		
+		{% if app.user  %}
+            {% include '::modulesUsed/header_options/notification.html.twig' %}
+        {% endif %}
       </ul>
                
     </nav>

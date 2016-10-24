@@ -1,15 +1,6 @@
 <!-- Global JS Files -->
-        <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ asset('js/jquery.min.js') }}"></script> 
-        <script src="{{ asset('js/jquery-ui.min.js') }}"></script>  
-        {% if app.session.get('ParsimonyScore_lang') != null %}         
-            <script src="{{ asset('js/lang/'~app.session.get('ParsimonyScore_lang')~'.js') }}"></script>
-        {% else %}
-            <script src="{{ asset('js/lang/FR.js') }}"></script>
-        {% endif %}
-        <script src="{{ asset('js/lang/apply_lang.js') }}"></script>
-        <script src="{{ asset('js/script.js') }}"></script>
-            <!-- Bootstrap -->
+
+        <!-- Bootstrap -->
         <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <!-- FastClick -->
         <script src="{{ asset('vendors/fastclick/lib/fastclick.js') }}"></script>
@@ -59,4 +50,4 @@
         <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
         <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
         <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-        <script src="{{ asset('js/admin.js') }}"></script>
+

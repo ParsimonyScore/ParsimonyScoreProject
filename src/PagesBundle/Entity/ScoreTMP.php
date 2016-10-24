@@ -101,16 +101,23 @@ class ScoreTMP
     /**
      * @var int
      *
-     * @ORM\Column(name="rnb", type="integer", nullable=true)
+     * @ORM\Column(name="nb", type="integer", nullable=true)
      */
-    private $rnb;
+    private $nb;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb", type="integer", nullable=true)
+     * @ORM\Column(name="ng", type="integer", nullable=true)
      */
-    private $nb;
+    private $ng;
+	
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="gb", type="integer", nullable=true)
+     */
+    private $gb;
 
 	/**
      * @var string
@@ -382,28 +389,6 @@ class ScoreTMP
         return $this->rb;
     }
 
-    /**
-     * Set rnb
-     *
-     * @param integer $rnb
-     * @return ScoreTMP
-     */
-    public function setRnb($rnb)
-    {
-        $this->rnb = $rnb;
-    
-        return $this;
-    }
-
-    /**
-     * Get rnb
-     *
-     * @return integer 
-     */
-    public function getRnb()
-    {
-        return $this->rnb;
-    }
 
     /**
      * Set nb
@@ -450,5 +435,51 @@ class ScoreTMP
     public function getFileName()
     {
         return $this->file_name;
+    }
+
+    /**
+     * Set ng
+     *
+     * @param integer $ng
+     * @return ScoreTMP
+     */
+    public function setNg($ng)
+    {
+        $this->ng = $ng;
+    
+        return $this;
+    }
+
+    /**
+     * Get ng
+     *
+     * @return integer 
+     */
+    public function getNg()
+    {
+        return $this->ng;
+    }
+
+    /**
+     * Set gb
+     *
+     * @param integer $gb
+     * @return ScoreTMP
+     */
+    public function setGb($gb)
+    {
+        $this->gb = $gb;
+    
+        return $this;
+    }
+
+    /**
+     * Get gb
+     *
+     * @return integer 
+     */
+    public function getGb()
+    {
+        return $this->gb;
     }
 }

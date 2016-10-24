@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+
+{% block onready %}
+	<script>
+	$( document ).ready(function() {
+		score= new ScoreTmp();
+		score.url= "{{ path('admin_listScoreTmp') }}";
+		score.url_accept_remove= "{{ path('admin_accept_score') }}";
+		score.url_files= "{{ asset('files/data') }}";
+		score.tab= $('#table_scoreTmp').dataTable({ "bPaginate": false });
+		score.getScores();
+	});	
+	</script>
+{% endblock %}
+
+
+
+{% block body %}
+
+
+<table class="table table-striped table-bordered" id="table_scoreTmp">
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th>Option</th>
+		</tr>
+	</thead>
+	<tbody id="scores_tmp">
+	</tbody>
+</table>
+<center><img id="loading" src="{{ asset('img/lod.gif') }}" width="150" /></center>
+
+<!-- div to show file content -->
+<div id="fileContent" style="display:none"> 
+	<div class="col-md-12 col-sm-12 col-xs-12" >
+		<textarea id="fileContent_data" rows="10" class="form-control" target="_blank" readonly>#my_data#</textarea>
+		<button type="button" id="fileContent_download" onclick="#download#" class="btn btn-primary" style="margin-top:5px"></button>
+		<button type="button" id="fileContent_close" onclick="#close#" class="btn btn-primary" style="margin-top:5px"></button>
+	</div>
+</div>					
+{% endblock %}

@@ -1,0 +1,21 @@
+<script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('js/jquery.min.js') }}"></script> 
+<script src="{{ asset('js/jquery-ui.min.js') }}"></script>  
+
+{% if app.request.cookies.has('ParsimonyScore_lang') != null%} 
+	<script src="{{ asset('js/lang/'~app.request.cookies.get('ParsimonyScore_lang')~'.js') }}"></script>
+{% elseif  app.session.get('ParsimonyScore_lang') != null %}        
+	<script src="{{ asset('js/lang/'~app.session.get('ParsimonyScore_lang')~'.js') }}"></script>
+{% else %}
+	<script src="{{ asset('js/lang/FR.js') }}"></script>
+{% endif %}
+<script src="{{ asset('js/lang/apply_lang.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
+{% if app.user   %}
+	<script src="{{ asset('js/admin.js') }}"></script>
+{% endif %}
+<script>
+	$( document ).ready(function() {
+		apply_lang();
+	});	
+</script>

@@ -7,7 +7,24 @@ var lang ={
 		
 		"menu" : {
 				"gest" : [ "Home", "About", "Contact us" ],
-				"admin" : ["Home"]
+				"admin" : [ "Home","","Profile","Password","Profile", "Scores list", "temporary scores", "Sign out"],
+				"super_admin" : [ "Home","","Profile","Password","Profile","Add new user", "Users list", "Scores list", "Temporary scores", "Sign out"]
+		},
+		
+		"tables" : {
+			"scoreTmp" : {
+				"title": "",
+				"th" : ["Problem","K","L","R","N","G","B","S","RN","RG","RB","NB","NG","GB","Data file"],
+				"disc" : ["","K : the number of sequences", "L : length of sequence", "", "","","","","","","","","","","" ],
+				"options" : {
+					"accept" : "Add score",
+					"remove" : "Remove"
+				},
+				"messages" : {
+					"accept" : "Are you sure about adding the score",
+					"remove" : "Are you sure about removing the score"
+				}
+			}
 		},
 		
 		"pages" : {
@@ -48,6 +65,11 @@ var lang ={
 				"submit" : "Send",
 				"error" : "An error occurred please try again later",
 				"success" : "Message sent"
+			},
+			
+			"fileContent" : {
+				"download" : "Download",
+				"close" : "Close"
 			}
 			
 		}
