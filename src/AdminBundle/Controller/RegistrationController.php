@@ -65,10 +65,6 @@ class RegistrationController extends BaseController
     }
 
     /**
-     * Tell the user to check his email provider.
-     */
-    
-/**
      * @Route("/check/{token}", name="check")
      */
     public function checkAction(Request $request, $token)
