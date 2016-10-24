@@ -44,7 +44,7 @@ fos_user:
     user_class: AdminBundle\Entity\User
     from_email: 
         address:     zakariae.ziko.lahyani@gmail.com
-        sender_name:    Siteweb
+        sender_name:    Parsimony-Score
     registration:
         confirmation:
             enabled:    true 

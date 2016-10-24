@@ -5,12 +5,15 @@ namespace AdminBundle\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Session\Session;
+
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
 
 class RegistrationController extends BaseController
 {
@@ -77,6 +80,9 @@ class RegistrationController extends BaseController
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
+        $dispatcher = $this->get('event_dispatcher');
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, $event);
         
         $form = $this->createFormBuilder()
             ->add('password', PasswordType::class)
@@ -88,15 +94,17 @@ class RegistrationController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $pass = $form["password"]->getData();
             $passvalid = $form["pass_valid"]->getData();
+            
             if($pass == $passvalid){
-                $user->setPassword( $form["pass_valid"]->getData() );
+                $user->setPlainPassword(  $form["pass_valid"]->getData()  );
+                $user->setPassword(  $form["pass_valid"]->getData()  );
                 $user->setConfirmationToken(null);
                 $user->setEnabled(true);
-
+                
                 $userManager->updateUser($user);
-
 
                 return $this->redirect($this->generateUrl('fos_user_profile_show') );
             }
@@ -110,27 +118,11 @@ class RegistrationController extends BaseController
 
         return $this->render('AdminBundle:Default:check.html.twig', array(
                 'form' => $form->createView(),
+                'user' => $user,
             ));
     }
    
 
    
-
-    /**
-     * Tell the user his account is now confirmed.
-     */
-    public function confirmedAction()
-    {
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
-            'user' => $user,
-            'targetUrl' => $this->getTargetUrlFromSession(),
-        ));
-    }
-
     
 }

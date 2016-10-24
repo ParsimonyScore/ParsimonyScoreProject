@@ -9,7 +9,7 @@ parameters:
     mailer_transport: smtp
     mailer_encryption: ssl
     mailer_host: smtp.gmail.com
-    mailer_user: zakariae.ziko.lahyani@gmail.com
-    mailer_password: Root.ziko
+    mailer_user: parsimony.score@gmail.com
+    mailer_password: parsimony.123456
     
     secret: 762b3282f343feac2e5d489bc9dddc9ee48e582a

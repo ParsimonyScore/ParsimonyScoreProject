@@ -1,9 +1,12 @@
 {% extends "::base.html.twig" %}
 
  {% block body %}
+	 Hello {{ user }} </br>
+		</br>
 	 thanks for activating your account </br>
 	 Please Set up your password ....
 	
+	</br>
 	{{ form_start(form) }}
 		{{ form_widget(form) }}
 	{{ form_end(form) }}
