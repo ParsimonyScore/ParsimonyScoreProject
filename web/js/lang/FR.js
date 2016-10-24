@@ -1,8 +1,12 @@
 var lang ={
+	
+		"lang" : "FR",
+		
 		"default" : {
 			"title" : "Parcimonie Score",
 			"footer" : "©2016 ParsimonyScore, tous droits réservés.",
-			"cnx" : "Connexion"
+			"cnx" : "Connexion",
+			"allMsg" :"Voir tous les messages"
 		},
 		
 		"menu" : {
@@ -24,6 +28,9 @@ var lang ={
 					"accept" : "Etes-vous sur de vouloir ajouter le score",
 					"remove" : "Etes-vous sur de vouloir supprimer le score"
 				}
+			},
+			"messages" : {
+				"th" : ["Par", "Reçu le"],
 			}
 		},
 		
@@ -70,6 +77,12 @@ var lang ={
 			"fileContent" : {
 				"download" : "Télécharger",
 				"close" : "Fermer"
+			},
+			"message" : {
+				"title" : "Message",
+				"print" : "Imprimmer",
+				"remove": "Supprimer",
+				"obj" : "Message envoyé par le formulaire contactez-nous."
 			}
 		}
 

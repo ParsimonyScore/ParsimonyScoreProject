@@ -2,10 +2,10 @@
 <script src="{{ asset('js/jquery.min.js') }}"></script> 
 <script src="{{ asset('js/jquery-ui.min.js') }}"></script>  
 
-{% if app.request.cookies.has('ParsimonyScore_lang') != null%} 
-	<script src="{{ asset('js/lang/'~app.request.cookies.get('ParsimonyScore_lang')~'.js') }}"></script>
-{% elseif  app.session.get('ParsimonyScore_lang') != null %}        
+{% if  app.session.get('ParsimonyScore_lang') != null %}        
 	<script src="{{ asset('js/lang/'~app.session.get('ParsimonyScore_lang')~'.js') }}"></script>
+{% elseif app.request.cookies.has('ParsimonyScore_lang')%} 
+	<script src="{{ asset('js/lang/'~app.request.cookies.get('ParsimonyScore_lang')~'.js') }}"></script>
 {% else %}
 	<script src="{{ asset('js/lang/FR.js') }}"></script>
 {% endif %}
@@ -17,5 +17,8 @@
 <script>
 	$( document ).ready(function() {
 		apply_lang();
+		{% if is_granted('ROLE_ADMIN') %}
+			getMessagesNotSeen("{{ path('admin_messages') }}");
+		{% endif %}
 	});	
 </script>

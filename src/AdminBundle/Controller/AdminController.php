@@ -135,6 +135,101 @@ class AdminController extends Controller
 		}
 			
 	}
+
+    /**
+     * @Route("/messages", name="admin_messages")
+     */
+    public function messagesAction(Request $request){ 
+    	$doctrine = $this->getDoctrine()->getManager();
+		$messageRepo = $doctrine->getRepository('AdminBundle:Message');
+    	$admin = $this->container->get('security.token_storage')->getToken()->getUser();
+		$serializer = $this->container->get('serializer');	
+		try{
+			if($admin->hasRole('ROLE_SUPER_ADMIN')) {
+				if($request->isMethod('POST')) {
+					$messages="[";
+					$list_last_messages = $messageRepo->findBy(array(), array('id' => 'desc'), 5, 0);
+					$i=sizeof($list_last_messages);
+					foreach($list_last_messages as $msg) {
+						$messages.=$serializer->serialize($msg, 'json',SerializationContext::create()->setSerializeNull(true));
+						$i--;
+						if($i>=1) $messages .= ",";
+					}
+					$messages.="]";
+					return new Response($messages); 
+				}
+				else {
+					$list_messages = $messageRepo->findBy(array(), array('id' => 'desc'));		
+					//return new Response(var_dump($list_messages)); 
+					return $this->render('AdminBundle:Default:listMessages.html.twig', array("messages" => $list_messages));
+				} 
+
+			}
+			else return new Response("Error : access denied"); 
+		}catch(\Exception $e) {
+			return new Response("Error : ".$e->getMessage()); 
+		}
+			
+	}
+
+
+    /**
+     * @Route("/message", name="admin_message")
+     */
+    public function showMessageAction(Request $request){ 
+    	$doctrine = $this->getDoctrine()->getManager();
+		$messageRepo = $doctrine->getRepository('AdminBundle:Message');
+    	$admin = $this->container->get('security.token_storage')->getToken()->getUser();
+		$serializer = $this->container->get('serializer');	
+		try{
+			if($admin->hasRole('ROLE_SUPER_ADMIN')) {
+				$id= $request->query->get("id");
+				if($id!=null) {
+					$message = $messageRepo->find($id);
+					if($message!=null) {
+						$message->setSeen(true);
+						$message->setSeenDate(new \DateTime("now"));
+						$doctrine->persist($message);	
+						$doctrine->flush();
+						return $this->render('AdminBundle:Default:message.html.twig', array("message"=>$message ));
+					}
+					else return new Response("Error : Message not found"); 
+				}
+				else return new Response("Error : variable(s) required null"); 
+			}
+			else return new Response("Error : access denied"); 
+		}catch(\Exception $e) {
+			return new Response("Error : ".$e->getMessage()); 
+		}			
+	}
+
+    /**
+     * @Route("/rmMessage", name="admin_removeMessage")
+     */
+    public function rmMessageAction(Request $request){ 
+    	$doctrine = $this->getDoctrine()->getManager();
+		$messageRepo = $doctrine->getRepository('AdminBundle:Message');
+    	$admin = $this->container->get('security.token_storage')->getToken()->getUser();
+		$serializer = $this->container->get('serializer');	
+		try{
+			if($admin->hasRole('ROLE_SUPER_ADMIN')) {
+				$id= $request->query->get("id");
+				if($id!=null) {
+					$message = $messageRepo->find($id);
+					if($message!=null) {
+						$doctrine->remove($message);	
+						$doctrine->flush();
+						return $this->forward('AdminBundle:Admin:messages', array());
+					}
+					else return new Response("Error : Message not found"); 
+				}
+				else return new Response("Error : variable(s) required null"); 
+			}
+			else return new Response("Error : access denied"); 
+		}catch(\Exception $e) {
+			return new Response("Error : ".$e->getMessage()); 
+		}			
+	}
 	
 	/*
 		function to get data from file 

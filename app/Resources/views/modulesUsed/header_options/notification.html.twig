@@ -1,28 +1,31 @@
 <li role="presentation" class="dropdown">
   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
     <i class="fa fa-envelope-o"></i>
-    <span class="badge bg-green">6</span>
+    <span class="badge bg-green" id="msgCount"></span>
   </a>
-  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-    <li>
-      <a>
-        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-        <span>
-          <span>John Smith</span>
-          <span class="time">3 mins ago</span>
-        </span>
-        <span class="message">
-          Film festivals used to be do-or-die moments for movie makers. They were where...
-        </span>
-      </a>
-    </li>
+  <ul id="msg" class="dropdown-menu list-unstyled msg_list" role="menu">  
     <li>
       <div class="text-center">
-        <a>
-          <strong>See All Alerts</strong>
+        <a href="{{ path('admin_messages') }}">
+          <strong id="id_allMsg">See all messages</strong>
           <i class="fa fa-angle-right"></i>
         </a>
       </div>
     </li>
   </ul>
 </li>
+
+<div id="msg_example" style="display:none">
+	<li>
+		  <a href="{{ path('admin_message') }}?id=#id#">
+			<span class="image"><img src="{{ asset('img/') }}#img#" /></span>
+			<span>
+			  <span>#email#</span>
+			  <span class="time" style="font-size:8px;margin-right: -20px;">#time#</span>
+			</span>
+			<span class="message">
+				#message#
+			</span>
+		  </a>
+	</li>
+</div>

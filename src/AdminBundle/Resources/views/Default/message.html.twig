@@ -1,0 +1,60 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+<div class="row" id="message">
+	<div class="col-md-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2 id="message_title"></h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+				  <div class="col-sm-9 mail_view">
+					<div class="inbox-body">
+					  <div class="mail_heading row">
+						<div class="col-md-8">
+						  <div class="btn-group">
+							<button class="btn btn-sm btn-default" type="button" onclick="window.print()" data-placement="top" data-toggle="tooltip" data-original-title="Print"><i class="fa fa-print"></i></button>
+							<button class="btn btn-sm btn-default" type="button" onclick="document.location.href='{{ path('admin_removeMessage')}}?id={{  message.id }}'" data-placement="top" data-toggle="tooltip" data-original-title="Trash"><i class="fa fa-trash-o"></i></button>
+						  </div>
+						</div>
+						<div class="col-md-4 text-right">
+						  <p class="date"> 
+						  {% if app.request.cookies.has('ParsimonyScore_lang') and app.request.cookies.get('ParsimonyScore_lang') == "EN" %}
+							 {{ message.sendDate.format('Y-m-d') }} at {{ message.sendDate.format('H:i') }}
+						  {% else %}
+							Le {{ message.sendDate.format('d/m/Y') }} a {{ message.sendDate.format('H:i') }}
+						  {% endif %}
+						  </p>
+						</div>
+						<div class="col-md-12">
+						  <h4 id="message_obj"></h4>
+						</div>
+					  </div>
+					  <div class="sender-info">
+						<div class="row">
+						  <div class="col-md-12">
+							<strong> <span class="fa fa-tag"></span> {{ message.email }}</strong>
+						  </div>
+						</div>
+					  </div>
+					  <div class="view-mail">
+						{{ message.message }}
+					  </div>
+
+					  <div class="btn-group">
+						<button class="btn btn-sm btn-default" onclick="window.print()" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Print"><i class="fa fa-print"></i></button>
+						<button class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Trash"><i class="fa fa-trash-o"></i></button>
+					  </div>
+					</div>
+				 </div>									
+			</div>
+		</div>
+	</div>
+</div>
+	
+	
+				  
+
+{% endblock %}
