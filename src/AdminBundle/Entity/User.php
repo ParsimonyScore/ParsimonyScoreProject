@@ -23,6 +23,9 @@ class User extends BaseUser
     {
         parent::__construct();
         
+        //$this->enabled = false;
+        $this->plainPassword = md5(uniqid());
+        $this->confirmationToken = md5(uniqid());
         $this->roles = array('ROLE_USER');
     }
 
