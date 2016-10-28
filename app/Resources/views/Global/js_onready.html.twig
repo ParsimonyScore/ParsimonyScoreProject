@@ -11,6 +11,8 @@
 {% endif %}
 <script src="{{ asset('js/lang/apply_lang.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+
+
 {% if app.user   %}
 	<script src="{{ asset('js/admin.js') }}"></script>
 {% endif %}
@@ -20,5 +22,14 @@
 		{% if is_granted('ROLE_ADMIN') %}
 			getMessagesNotSeen("{{ path('admin_messages') }}");
 		{% endif %}
+        
+        $('.file_style').jfilestyle({
+            buttonText : 'Inserez votre fichier',
+            //inputSize : '100px'
+        });
 	});	
 </script>
+
+<!-- Input file -->
+ <script src="{{ asset('js/fileStyle/jquery-filestyle.js') }}"></script>
+ <script src="{{ asset('js/fileStyle/jquery-filestyle.min.js') }}"></script>

@@ -5,7 +5,8 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         {% include '::Global/global_css.html.twig' %}
-		{% include '::Global/js_onready.html.twig' %}
+        {% include '::Global/js_onready.html.twig' %}
+        
 		{% block onready %}{% endblock %}
     </head>
     
@@ -32,9 +33,9 @@
                 </div>
                 {% include '::modulesUsed/footer.html.twig' %}
 
-
-                {% block javascripts %}{% endblock %}
                 {% include '::Global/global_js.html.twig' %}
+                {% block javascripts %}{% endblock %}
+                
             </div>
         </div>
     </body>
