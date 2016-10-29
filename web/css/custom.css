@@ -2322,7 +2322,7 @@ ul.timeline li {
   border-left: 3px solid #e8e8e8;
   overflow: visible;
   padding: 10px 15px;
-  margin-left: 105px; }
+  margin-left: 150px; }
 
 .timeline.widget {
   min-width: 0;
@@ -2335,7 +2335,7 @@ ul.timeline li {
   position: absolute;
   top: 15px;
   left: 0;
-  width: 84px; }
+  width: 135px; }
 
 .timeline .tag {
   display: block;

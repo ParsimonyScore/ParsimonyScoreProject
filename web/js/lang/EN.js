@@ -84,6 +84,16 @@ var lang ={
 				"print" : "Print",
 				"remove": "Remove",
 				"obj" : "Message sent with contact-us form."
+			},
+			"calculScore" : {
+				"tag" : "Calcul the score",
+				"title" : "",
+				"show_log" : "Show log",
+				"hide_log" : "Hide log"
+			},
+			"compScore" : {
+				"tag" : "Compare the score",
+				"title" : ""
 			}
 			
 		}

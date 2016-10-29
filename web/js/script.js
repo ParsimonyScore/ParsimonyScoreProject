@@ -12,3 +12,64 @@ function setTypeSelected(value){
 		$("#type_file").value="";
 	}
 }
+
+// to show log
+function showLog(){
+	var log =document.getElementById("calculScore_log");
+	if(log.style.display=="none") {
+		log.style.display="";
+		document.getElementById("calculScore_show_log").innerHTML=lang.pages.calculScore.hide_log;
+	}
+	else {
+		log.style.display="none"; 
+		document.getElementById("calculScore_show_log").innerHTML=lang.pages.calculScore.show_log;
+	}
+}
+
+function ScoreCaclul(id, url) {
+	$.ajax({
+		url: url,
+		type: "POST",
+		data: "id="+id+"&calcul=1",
+		dataType : 'html',
+		success: function (my_text) {
+			if(my_text.indexOf("Error")!=-1){
+				alert(my_text);
+			}
+			else {
+				var result = JSON.parse(my_text);
+				all_lines="";
+				for(i=0;i<result["output"].length;i++) {
+					all_lines+=result["output"][i]+"\n";
+				} 
+				document.getElementById("calculScore_log").innerHTML=all_lines;
+				var score= result["score"];
+				var tr="<tr>"
+					  	+ "<td>"+score.problem+"</td>"
+					  	+ "<td>"+score.k+"</td>"
+					  	+ "<td>"+score.l+"</td>"
+					  	+ "<td>"+score.r+"</td>"
+					  	+ "<td>"+score.n+"</td>"
+					  	+ "<td>"+score.g+"</td>"
+					  	+ "<td>"+score.b+"</td>"
+					  	+ "<td>"+score.s+"</td>"
+					  	+ "<td>"+parseFloat(score.rn.toFixed(4))+"</td>"
+					  	+ "<td>"+parseFloat(score.rg.toFixed(4))+"</td>"
+					  	+ "<td>"+parseFloat(score.rb.toFixed(4))+"</td>"
+					  	+ "<td>"+parseFloat(score.nb.toFixed(4))+"</td>"
+					  	+ "<td>"+parseFloat(score.ng.toFixed(4))+"</td>"
+					  	+ "<td>"+parseFloat(score.gb.toFixed(4))+"</td>"
+					  	+ "<td>"+score.file_name+"</td>"
+					  + "</tr>";
+				document.getElementById("calculScore_content").innerHTML=tr;
+				document.getElementById("calculScore_lod").style.display="none";
+				document.getElementById("calculScore_show_log").style.display="";
+				document.getElementById("table_scoreTmp").style.display="";
+				document.getElementById("compScore").style.display="";
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+		} 		
+	});	
+}

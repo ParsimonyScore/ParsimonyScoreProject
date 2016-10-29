@@ -8,8 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Cookie;
+use JMS\Serializer\SerializationContext;
 use PagesBundle\Entity\ScoreTMP;
 use AdminBundle\Entity\Message;
+
 
 class DefaultController extends Controller
 {
@@ -69,12 +71,13 @@ class DefaultController extends Controller
 							// here execution of c++ programme 
 							$score->setFileName(substr($filename,strpos($filename,"data/")+5));
 							$doctrine->persist($score);
-							$doctrine->flush();							
+							$doctrine->flush();
+							
 						}
 						else $error = "Error : faild to calcul k and l"; 
 					}
 					else $error = "Error : File creation faild "; 
-					if($error=="") return $this->render('PagesBundle:Default:index.html.twig', array('success' => "k= ".$score->getK()." l=".$score->getL())) ;	
+					if($error=="") return $this->render('PagesBundle:Default:index.html.twig', array('success' => "", "score" => $score)) ;	
 					
 				}
 				else $error="variable(s) required null";
@@ -84,7 +87,42 @@ class DefaultController extends Controller
 			}			
 		}		
 	}
-	
+
+    /**
+     * @Route("/calculScore", name="pages_calculScore")
+     */	 
+	public function calculScoreAction(Request $request){
+		$doctrine = $this->getDoctrine()->getManager();
+		$scoreRepo = $doctrine->getRepository('PagesBundle:ScoreTMP');
+		$serializer = $this->container->get('serializer');
+		if($request->isMethod('POST')) {
+			try{
+				$id=$request->request->get("id");
+				if($id!=null) {
+					$score= $scoreRepo->find($id);
+					if($score!=null) {
+						if($request->request->get("calcul") !=null) {
+							if($output=$this->calculScore($score)) {
+								$rep =array();
+								$rep["output"] = $output;
+								$rep["score"] = $score;
+								$doctrine->persist($score);
+								$doctrine->flush();
+								return new Response($serializer->serialize($rep, 'json',SerializationContext::create()->setSerializeNull(true)));
+							}
+							else return new Response("Error : calcul of  Score faild");
+						}
+						else return new Response("Error : Operation faild");
+					}
+					else return new Response("Error : score not found "); 
+				}
+				else return new Response("Error : variable(s) required null"); 
+			}catch(\Exception $e) {
+				return new Response("Error : ".$e->getMessage()); 
+			}			
+		}	
+	}
+
 	/**
      * @Route("/contact", name="pages_contact")
      */	
@@ -137,7 +175,7 @@ class DefaultController extends Controller
 		
 	*/
 	private function saveDataFile($file, $filename){
-		$path_name=__DIR__."/../../../web/files/data/".$this->getCodeForFile()."_".$filename.".txt";
+		$path_name=__DIR__."/../../../web/files/data/".$this->getCodeForFile()."_".$filename.".fasta";
 		$type_file=substr($file['name'],strrpos($file['name'],'.'));
 		if(strpos($type_file,"txt")!==false || strpos($type_file,"fasta") ){
 			if(move_uploaded_file($file['tmp_name'],$path_name)){
@@ -155,7 +193,7 @@ class DefaultController extends Controller
 		
 	*/
 	private function saveData($data, $filename) {
-		$path_name=__DIR__."/../../../web/files/data/".$this->getCodeForFile()."_".$filename.".txt";
+		$path_name=__DIR__."/../../../web/files/data/".$this->getCodeForFile()."_".$filename.".fasta";
 		if(file_put_contents($path_name,$data)) return $path_name;
 		else return false;
 	}
@@ -176,4 +214,27 @@ class DefaultController extends Controller
 		}
 		return false;		
 	}
+
+	/*
+		function to calcul score from data file 
+		return array of string
+	*/
+	private function calculScore(&$score) {
+		$output=array();
+		exec ("../bin/parsimony_predictor.exe --collect --input-file=files/data/".$score->getFileName(),$output);
+		$data= explode(" ",$output[sizeof($output)-1]);
+		$score->setR($data[2]);
+		$score->setN($data[3]);
+		$score->setG($data[4]);
+		$score->setB(max($data[6],$data[7],$data[8],$data[9]));
+		$score->setS($data[5]);
+		$score->setRN((($data[2]-$data[3]))/$data[2]*100);
+		$score->setRG((($data[2]-$data[4]))/$data[2]*100);
+		$score->setRB((($data[2]- $score->getB()))/$data[2]*100);
+		$score->setNB((($data[3]-$score->getB()))/$data[3]*100);
+		$score->setNG((($data[3]-$data[4]))/$data[3]*100);
+		$score->setGB((($data[4]-$score->getB()))/$data[4]*100);
+		return $output;
+	}
+
 }

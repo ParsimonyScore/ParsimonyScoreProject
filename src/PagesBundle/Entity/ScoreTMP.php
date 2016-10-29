@@ -78,44 +78,44 @@ class ScoreTMP
     private $s;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="rn", type="integer", nullable=true)
+     * @ORM\Column(name="rn", type="float", nullable=true)
      */
     private $rn;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="rg", type="integer", nullable=true)
+     * @ORM\Column(name="rg", type="float", nullable=true)
      */
     private $rg;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="rb", type="integer", nullable=true)
+     * @ORM\Column(name="rb", type="float", nullable=true)
      */
     private $rb;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="nb", type="integer", nullable=true)
+     * @ORM\Column(name="nb", type="float", nullable=true)
      */
     private $nb;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="ng", type="integer", nullable=true)
+     * @ORM\Column(name="ng", type="float", nullable=true)
      */
     private $ng;
 	
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="gb", type="integer", nullable=true)
+     * @ORM\Column(name="gb", type="float", nullable=true)
      */
     private $gb;
 
@@ -320,99 +320,6 @@ class ScoreTMP
         return $this->s;
     }
 
-    /**
-     * Set rn
-     *
-     * @param integer $rn
-     * @return ScoreTMP
-     */
-    public function setRn($rn)
-    {
-        $this->rn = $rn;
-    
-        return $this;
-    }
-
-    /**
-     * Get rn
-     *
-     * @return integer 
-     */
-    public function getRn()
-    {
-        return $this->rn;
-    }
-
-    /**
-     * Set rg
-     *
-     * @param integer $rg
-     * @return ScoreTMP
-     */
-    public function setRg($rg)
-    {
-        $this->rg = $rg;
-    
-        return $this;
-    }
-
-    /**
-     * Get rg
-     *
-     * @return integer 
-     */
-    public function getRg()
-    {
-        return $this->rg;
-    }
-
-    /**
-     * Set rb
-     *
-     * @param integer $rb
-     * @return ScoreTMP
-     */
-    public function setRb($rb)
-    {
-        $this->rb = $rb;
-    
-        return $this;
-    }
-
-    /**
-     * Get rb
-     *
-     * @return integer 
-     */
-    public function getRb()
-    {
-        return $this->rb;
-    }
-
-
-    /**
-     * Set nb
-     *
-     * @param integer $nb
-     * @return ScoreTMP
-     */
-    public function setNb($nb)
-    {
-        $this->nb = $nb;
-    
-        return $this;
-    }
-
-    /**
-     * Get nb
-     *
-     * @return integer 
-     */
-    public function getNb()
-    {
-        return $this->nb;
-    }
-
 
     /**
      * Set file_name
@@ -437,23 +344,116 @@ class ScoreTMP
         return $this->file_name;
     }
 
+
+    /**
+     * Set rn
+     *
+     * @param float $rn
+     * @return ScoreTMP
+     */
+    public function setRn($rn)
+    {
+        $this->rn = $rn;
+
+        return $this;
+    }
+
+    /**
+     * Get rn
+     *
+     * @return float 
+     */
+    public function getRn()
+    {
+        return $this->rn;
+    }
+
+    /**
+     * Set rg
+     *
+     * @param float $rg
+     * @return ScoreTMP
+     */
+    public function setRg($rg)
+    {
+        $this->rg = $rg;
+
+        return $this;
+    }
+
+    /**
+     * Get rg
+     *
+     * @return float 
+     */
+    public function getRg()
+    {
+        return $this->rg;
+    }
+
+    /**
+     * Set rb
+     *
+     * @param float $rb
+     * @return ScoreTMP
+     */
+    public function setRb($rb)
+    {
+        $this->rb = $rb;
+
+        return $this;
+    }
+
+    /**
+     * Get rb
+     *
+     * @return float 
+     */
+    public function getRb()
+    {
+        return $this->rb;
+    }
+
+    /**
+     * Set nb
+     *
+     * @param float $nb
+     * @return ScoreTMP
+     */
+    public function setNb($nb)
+    {
+        $this->nb = $nb;
+
+        return $this;
+    }
+
+    /**
+     * Get nb
+     *
+     * @return float 
+     */
+    public function getNb()
+    {
+        return $this->nb;
+    }
+
     /**
      * Set ng
      *
-     * @param integer $ng
+     * @param float $ng
      * @return ScoreTMP
      */
     public function setNg($ng)
     {
         $this->ng = $ng;
-    
+
         return $this;
     }
 
     /**
      * Get ng
      *
-     * @return integer 
+     * @return float 
      */
     public function getNg()
     {
@@ -463,20 +463,20 @@ class ScoreTMP
     /**
      * Set gb
      *
-     * @param integer $gb
+     * @param float $gb
      * @return ScoreTMP
      */
     public function setGb($gb)
     {
         $this->gb = $gb;
-    
+
         return $this;
     }
 
     /**
      * Get gb
      *
-     * @return integer 
+     * @return float 
      */
     public function getGb()
     {

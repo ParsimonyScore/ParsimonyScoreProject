@@ -43,8 +43,8 @@ function apply_lang(){
 	for(t in lang.tables) {
 		if(document.getElementById("table_"+t) != null) {
 			var th= document.getElementById("table_"+t).getElementsByTagName("th");
-			for(i=0;i<th.length-1;i++) {
-				th[i].innerHTML=lang.tables[t].th[i];
+			for(i=0;i<th.length;i++) {
+				if(th[i].innerHTML.trim()=="") th[i].innerHTML=lang.tables[t].th[i];
 			}
 		}
 	}

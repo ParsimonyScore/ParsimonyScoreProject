@@ -83,7 +83,18 @@ var lang ={
 				"print" : "Imprimmer",
 				"remove": "Supprimer",
 				"obj" : "Message envoyé par le formulaire contactez-nous."
+			},
+			"calculScore" : {
+				"tag" : "Calcul de score",
+				"title" : "",
+				"show_log" : "Afficher le Log",
+				"hide_log" : "Cacher"
+			},
+			"compScore" : {
+				"tag" : "Comparer le score",
+				"title" : ""
 			}
+
 		}
 
 };

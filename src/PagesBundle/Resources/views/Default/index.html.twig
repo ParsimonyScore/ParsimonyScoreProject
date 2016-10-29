@@ -1,5 +1,16 @@
 {% extends "::base.html.twig" %}	
 
+  	{% block onready %}
+  		{% if score is defined %}
+  			<script type="text/javascript">
+		  		$( document ).ready(function() {
+				    ScoreCaclul("{{ score.id }}", "{{ path('pages_calculScore') }}");
+				});
+  			</script>
+		{% endif %}
+
+  	{% endblock %}
+
   {% block body %}			
 						  <div class="x_title">
 							<h2 id="addScoreFrom_title"></h2>
@@ -19,9 +30,73 @@
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
 								</button>
 								<strong> <script> document.write(lang.pages.addScoreFrom.success) </script> </strong> [  {{ success }} ]
-							  </div>
-						  {% endif %}
+							  </div> 
+			                  <ul class="list-unstyled timeline" >
+			                    <li id="calculScore">
+			                      <div class="block">
+			                        <div class="tags">
+			                          <a href="" class="tag">
+			                            <span id="calculScore_tag" ></span>
+			                          </a>
+			                        </div>
+			                        <div class="block_content">
+			                          <h2 class="title" id="calculScore_title"></h2>
+			                          <div class="byline" id="calculScore_time">
+			                          </div>
+			                          <p class="excerpt">
+			                          		<center><img id="calculScore_lod" src="{{ asset('img/lod.gif') }}" width="150"/> </center>
+			                          		<button style="display:none" type="button" id="calculScore_show_log"
+			                          				onclick="showLog()"></button> <br/>
+			                          		<textarea id="calculScore_log" rows="10" class="form-control" style="display:none" readonly></textarea>
+			                          		<br/>
+			                          		<table class="table" id="table_scoreTmp" style="display:none">
+			                          			<tr>
+			                          				<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+			                          			</tr>
+			                          			<tbody id="calculScore_content">
+			                          			</tbody>
+			                          		</table>
+
+			                          </p>
+			                        </div>
+			                      </div>
+			                    </li>
+			                    <li id="compScore" style="display:none">
+			                      <div class="block">
+			                        <div class="tags">
+			                          <a href="javascipt:void(0)" class="tag">
+			                            <span id="compScore_tag" ></span>
+			                          </a>
+			                        </div>
+			                        <div class="block_content">
+			                          <h2 class="title" id="compScore_title"></h2>
+			                          <div class="byline" id="compScore_time">
+			                          </div>
+			                          <p class="excerpt" id="compScore_content">
+			                          		<center><img id="compScore_lod" src="{{ asset('img/lod.gif') }}" width="150"/> </center>
+			                          </p>
+			                        </div>
+			                      </div>
+			                    </li>
+			                  </ul>
+
+			               {% else %}
 						  
+						 						  
 							<form id="addScoreFrom" action="{{ path('pages_addScore') }}" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left" >
 							  <div class="form-group">
 								<label class="control-label col-md-3 col-sm-3 col-xs-12" id="addScoreFrom_problem" for="id_problem"><span class="required">*</span>
@@ -65,7 +140,9 @@
 								</div>
 							  </div>
 							</form>
+						 {% endif %}
 						  </div>
+						
 						
         <!-- /page content -->
 		{% endblock %}
