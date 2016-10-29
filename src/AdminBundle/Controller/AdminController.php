@@ -15,6 +15,44 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AdminController extends Controller
 {
+    
+    // add one score to the DB
+    function addScore($name,$k,$l,$r,$n,$g,$b,$s,&$doctrine) {
+                $score = new Score();
+                $score->setProblem($name);
+                $score->setK($k);
+                $score->setL($l);
+                $score->setR($r);
+                $score->setN($n);
+                $score->setG($g);
+                $score->setB($b);
+                $score->setS($s);
+              
+                if($r != 0) {  // RN - RG - RB
+                    $score->setRn(($r-$n)/$r*100);
+                    $score->setRg(($r-$g)/$r*100);
+                    $score->setRb(($r-$b)/$r*100);
+                } else {
+                    $score->setRn(0);
+                    $score->setRg(0);
+                    $score->setRb(0);
+                }
+
+                if($n != 0) {  // NB - NG
+                    $score->setNb(($n-$b)/$n*100);
+                    $score->setNg(($n-$g)/$n*100);
+                } else {
+                    $score->setNb(0);
+                    $score->setNg(0);
+                }
+
+                if($g !=0) $score->setGb(($g-$b)/$g*100); // GB
+                else $score->setGb(0);
+
+                $doctrine->persist($score);
+                $doctrine->flush();
+    }
+    
     /**
      * @Route("/")
      */
@@ -163,7 +201,8 @@ class AdminController extends Controller
 				else {
 					$list_messages = $messageRepo->findBy(array(), array('id' => 'desc'));		
 					//return new Response(var_dump($list_messages)); 
-					return $this->render('AdminBundle:Default:listMessages.html.twig', array("messages" => $list_messages));
+					return $this->render('AdminBundle:Default:listMessages.html.twig',
+                                         array("messages" => $list_messages));
 				} 
 
 			}
@@ -193,7 +232,8 @@ class AdminController extends Controller
 						$message->setSeenDate(new \DateTime("now"));
 						$doctrine->persist($message);	
 						$doctrine->flush();
-						return $this->render('AdminBundle:Default:message.html.twig', array("message"=>$message ));
+						return $this->render('AdminBundle:Default:message.html.twig',
+                                             array("message"=>$message ));
 					}
 					else return new Response("Error : Message not found"); 
 				}
@@ -244,4 +284,125 @@ class AdminController extends Controller
 		}
 		return "File not found";
 	}
+    
+         /**
+     * @Route("/insertion",  name="insertion")
+     
+     parse the file submitted by the administrator and saves its contents in the table "score"
+     */
+    
+    public function insertionAction(Request $request)
+    {
+     
+           try{
+             	$doctrine = $this->getDoctrine()->getManager();
+				$scoreRepo = $doctrine->getRepository('PagesBundle:Score');
+				
+				$file=$_FILES['file_data'];
+				$error="";
+				if ($file['size'] != 0) {
+                   
+                    $type_file=substr($file['name'],strrpos($file['name'],'.'));
+                    if(strpos($type_file,"txt")!==false || strpos($type_file,"csv")!==false){
+                            $path_name=__DIR__."/../../../web/files/data/".basename($file['name']);
+                            if(move_uploaded_file($file['tmp_name'],$path_name)){
+
+                                $data= trim(file_get_contents($path_name));
+
+                                $lines = explode("\n",$data);  // each line
+                                foreach($lines as $line) {  
+                                   $values = explode(',',$line);  // each value
+                                
+                                   $this->addScore(substr($values[0],1,-1),$values[1],$values[2],$values[3],$values[4],$values[5],$values[6],$values[7],$doctrine);
+                                }
+                                unlink($path_name);
+
+                            }
+                            else $error ="Error :File upload failed"; 
+                        }
+                        else $error = "Error : only csv or txt format are allowed"; 
+
+                        $scores = $this->getDoctrine()->getRepository('PagesBundle:Score')->findBy([], ['problem' => 'ASC']);
+                        if($error=="") {
+                           
+                            return $this->render('AdminBundle:Default:listeScore.html.twig',
+                                                 array('success' => "data added to database" ,'scores' => $scores )) ;
+                        } else 
+                            return $this->render('AdminBundle:Default:all_socres.html.twig',
+                                                 array('error' => $error ,'scores' => $scores )) ;
+                    
+                } else {
+                    $scores = $this->getDoctrine()->getRepository('PagesBundle:Score')->findBy([], ['problem' => 'ASC']);
+                    $error="veillez inserer un fichier";
+                    return $this->render('AdminBundle:Default:listeScore.html.twig',
+                                         array('error' => $error ,'scores' => $scores )) ;
+                }
+           }catch(\Exception $e) {
+				return new Response("Error : ".$e->getMessage()); 
+           }
+			
+    }
+    
+    
+    /**
+     * @Route("/all" , name="allScores")
+     */
+    public function listeScoresAction()
+    {
+       $scores = $this->getDoctrine()->getRepository('PagesBundle:Score')->findBy([], ['problem' => 'ASC']);
+
+       return $this->render('AdminBundle:Default:listeScore.html.twig',array('scores' => $scores));
+    }
+    
+    
+    
+    /**
+     * @Route("/rm_scor/{Id}" , name="removeScore")
+     
+     Delete the score from the database
+     */
+    public function rmScoreAction($Id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $score = $em->getRepository('PagesBundle:Score')->find($Id);
+
+        if (!$score) {
+            throw $this->createNotFoundException(
+                'Score introuvable'
+            );
+        }
+
+        $em->remove($score);
+        $em->flush();
+
+        return $this->redirectToRoute('allScores');
+    }
+    
+    /**
+    * @Route("/add",name ="add_score")
+    
+    add score to the database
+    */   
+    public function add_score(Request $request){
+             
+           try{
+             	$doctrine = $this->getDoctrine()->getManager();
+				$scoreRepo = $doctrine->getRepository('PagesBundle:Score');
+
+                
+               $this->addScore(trim($request->request->get("name")), trim($request->request->get("K")), trim($request->request->get("L")),
+                               trim($request->request->get("R")), trim($request->request->get("N")), trim($request->request->get("G")),
+                               trim($request->request->get("B")),  trim($request->request->get("S")),$doctrine);
+             
+                $scores = $this->getDoctrine()->getRepository('PagesBundle:Score')->findBy([], ['problem' => 'ASC']);
+               
+                return $this->render('AdminBundle:Default:listeScore.html.twig', 
+                                     array('success' => 'data bien enregistrer','scores' => $scores));
+                      
+           }catch(\Exception $e) {
+				return new Response("Error : ".$e->getMessage()); 
+           }
+      
+    }
+   
 }
