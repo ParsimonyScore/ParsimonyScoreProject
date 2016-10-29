@@ -30,7 +30,7 @@
     <parameter key="database_port">null</parameter>
     <parameter key="database_name">ParsimonyScore</parameter>
     <parameter key="database_user">root</parameter>
-    <parameter key="database_password">null</parameter>
+    <parameter key="database_password">ismail963</parameter>
     <parameter key="mailer_transport">smtp</parameter>
     <parameter key="mailer_encryption">ssl</parameter>
     <parameter key="mailer_host">smtp.gmail.com</parameter>
@@ -2359,7 +2359,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>5810ec28c83c66.48029211</argument>
+            <argument>5814bbf8cf7995.26862373</argument>
           </service>
         </argument>
       </argument>
@@ -2659,7 +2659,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>5810ec28c83c66.48029211</argument>
+            <argument>5814bbf8cf7995.26862373</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -3055,7 +3055,7 @@
         <argument key="port">null</argument>
         <argument key="dbname">ParsimonyScore</argument>
         <argument key="user">root</argument>
-        <argument key="password">null</argument>
+        <argument key="password">ismail963</argument>
         <argument key="charset">UTF8</argument>
         <argument key="driverOptions" type="collection"/>
         <argument key="defaultTableOptions" type="collection"/>

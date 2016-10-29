@@ -15,8 +15,8 @@ class __TwigTemplate_b4c9cd2a3db2c3fdf19c55c03da2510c9b384fae4e23b35965eeaafb224
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_83225bf9010a5b14d08c8ba1bdad8639f2f6dd414c1a395aa01729926a44cc4b = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_83225bf9010a5b14d08c8ba1bdad8639f2f6dd414c1a395aa01729926a44cc4b->enter($__internal_83225bf9010a5b14d08c8ba1bdad8639f2f6dd414c1a395aa01729926a44cc4b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::modulesUsed/navigation.html.twig"));
+        $__internal_d9495dcaaeeb305c25867c954557170a0d910947791e151bc79a50ee8c73f10b = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_d9495dcaaeeb305c25867c954557170a0d910947791e151bc79a50ee8c73f10b->enter($__internal_d9495dcaaeeb305c25867c954557170a0d910947791e151bc79a50ee8c73f10b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "::modulesUsed/navigation.html.twig"));
 
         // line 1
         echo "<div class=\"navbar nav_title\" style=\"border: 0;\">   
@@ -90,7 +90,7 @@ class __TwigTemplate_b4c9cd2a3db2c3fdf19c55c03da2510c9b384fae4e23b35965eeaafb224
 
 ";
         
-        $__internal_83225bf9010a5b14d08c8ba1bdad8639f2f6dd414c1a395aa01729926a44cc4b->leave($__internal_83225bf9010a5b14d08c8ba1bdad8639f2f6dd414c1a395aa01729926a44cc4b_prof);
+        $__internal_d9495dcaaeeb305c25867c954557170a0d910947791e151bc79a50ee8c73f10b->leave($__internal_d9495dcaaeeb305c25867c954557170a0d910947791e151bc79a50ee8c73f10b_prof);
 
     }
 

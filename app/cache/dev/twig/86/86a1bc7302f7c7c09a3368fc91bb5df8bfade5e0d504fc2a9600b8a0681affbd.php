@@ -10,6 +10,7 @@ class __TwigTemplate_5be9670dac4b730a3b03a3fd7c32ceac460a7f94302934636c75a97c148
         // line 1
         $this->parent = $this->loadTemplate("::base.html.twig", "PagesBundle:Default:index.html.twig", 1);
         $this->blocks = array(
+            'onready' => array($this, 'block_onready'),
             'body' => array($this, 'block_body'),
         );
     }
@@ -21,20 +22,50 @@ class __TwigTemplate_5be9670dac4b730a3b03a3fd7c32ceac460a7f94302934636c75a97c148
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_0b00da9bd930306fffd5ad5c9ce5d36e5285926f06d217dffcbae604345c138c = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_0b00da9bd930306fffd5ad5c9ce5d36e5285926f06d217dffcbae604345c138c->enter($__internal_0b00da9bd930306fffd5ad5c9ce5d36e5285926f06d217dffcbae604345c138c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "PagesBundle:Default:index.html.twig"));
+        $__internal_06f121a97f54591e8ff1155c3ae6f19b1f85e7beff3f6cb0c6e3bcefceac0dac = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_06f121a97f54591e8ff1155c3ae6f19b1f85e7beff3f6cb0c6e3bcefceac0dac->enter($__internal_06f121a97f54591e8ff1155c3ae6f19b1f85e7beff3f6cb0c6e3bcefceac0dac_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "PagesBundle:Default:index.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_0b00da9bd930306fffd5ad5c9ce5d36e5285926f06d217dffcbae604345c138c->leave($__internal_0b00da9bd930306fffd5ad5c9ce5d36e5285926f06d217dffcbae604345c138c_prof);
+        $__internal_06f121a97f54591e8ff1155c3ae6f19b1f85e7beff3f6cb0c6e3bcefceac0dac->leave($__internal_06f121a97f54591e8ff1155c3ae6f19b1f85e7beff3f6cb0c6e3bcefceac0dac_prof);
 
     }
 
     // line 3
+    public function block_onready($context, array $blocks = array())
+    {
+        $__internal_8022c16e87beb787b150214595ae294c88179d5fde9a19088901c5e0b02e1c01 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_8022c16e87beb787b150214595ae294c88179d5fde9a19088901c5e0b02e1c01->enter($__internal_8022c16e87beb787b150214595ae294c88179d5fde9a19088901c5e0b02e1c01_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "onready"));
+
+        // line 4
+        echo "  \t\t";
+        if (array_key_exists("score", $context)) {
+            // line 5
+            echo "  \t\t\t<script type=\"text/javascript\">
+\t\t  \t\t\$( document ).ready(function() {
+\t\t\t\t    ScoreCaclul(\"";
+            // line 7
+            echo twig_escape_filter($this->env, $this->getAttribute((isset($context["score"]) ? $context["score"] : $this->getContext($context, "score")), "id", array()), "html", null, true);
+            echo "\", \"";
+            echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("pages_calculScore");
+            echo "\");
+\t\t\t\t});
+  \t\t\t</script>
+\t\t";
+        }
+        // line 11
+        echo "
+  \t";
+        
+        $__internal_8022c16e87beb787b150214595ae294c88179d5fde9a19088901c5e0b02e1c01->leave($__internal_8022c16e87beb787b150214595ae294c88179d5fde9a19088901c5e0b02e1c01_prof);
+
+    }
+
+    // line 14
     public function block_body($context, array $blocks = array())
     {
-        $__internal_20820aef9119a68be3c7e35eb9a397015c2b51cf4b4f60663619318097044d24 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_20820aef9119a68be3c7e35eb9a397015c2b51cf4b4f60663619318097044d24->enter($__internal_20820aef9119a68be3c7e35eb9a397015c2b51cf4b4f60663619318097044d24_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_5f62bca58ad72014e485e82a48641b7b0fd0a5ca500ec79bad1ea13dc0082fd2 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_5f62bca58ad72014e485e82a48641b7b0fd0a5ca500ec79bad1ea13dc0082fd2->enter($__internal_5f62bca58ad72014e485e82a48641b7b0fd0a5ca500ec79bad1ea13dc0082fd2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         echo "\t\t\t
 \t\t\t\t\t\t  <div class=\"x_title\">
@@ -43,41 +74,111 @@ class __TwigTemplate_5be9670dac4b730a3b03a3fd7c32ceac460a7f94302934636c75a97c148
 \t\t\t\t\t\t  </div>
 \t\t\t\t\t\t  <div class=\"x_content\">
 \t\t\t\t\t\t  ";
-        // line 9
+        // line 20
         if (array_key_exists("error", $context)) {
-            // line 10
+            // line 21
             echo "\t\t\t\t\t\t\t <div class=\"alert alert-danger alert-dismissible fade in\" role=\"alert\">
 \t\t\t\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span>
 \t\t\t\t\t\t\t\t</button>
 \t\t\t\t\t\t\t\t<strong> <script> document.write(lang.pages.addScoreFrom.error) </script> </strong> [  ";
-            // line 13
+            // line 24
             echo twig_escape_filter($this->env, (isset($context["error"]) ? $context["error"] : $this->getContext($context, "error")), "html", null, true);
             echo " ]
 \t\t\t\t\t\t\t  </div>
 \t\t\t\t\t\t  ";
         }
-        // line 16
+        // line 27
         echo "\t\t\t\t\t\t  
 \t\t\t\t\t\t  ";
-        // line 17
+        // line 28
         if (array_key_exists("success", $context)) {
-            // line 18
+            // line 29
             echo "\t\t\t\t\t\t\t  <div class=\"alert alert-success alert-dismissible fade in\" role=\"alert\">
 \t\t\t\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span>
 \t\t\t\t\t\t\t\t</button>
 \t\t\t\t\t\t\t\t<strong> <script> document.write(lang.pages.addScoreFrom.success) </script> </strong> [  ";
-            // line 21
+            // line 32
             echo twig_escape_filter($this->env, (isset($context["success"]) ? $context["success"] : $this->getContext($context, "success")), "html", null, true);
             echo " ]
-\t\t\t\t\t\t\t  </div>
-\t\t\t\t\t\t  ";
-        }
-        // line 24
-        echo "\t\t\t\t\t\t  
+\t\t\t\t\t\t\t  </div> 
+\t\t\t                  <ul class=\"list-unstyled timeline\" >
+\t\t\t                    <li id=\"calculScore\">
+\t\t\t                      <div class=\"block\">
+\t\t\t                        <div class=\"tags\">
+\t\t\t                          <a href=\"\" class=\"tag\">
+\t\t\t                            <span id=\"calculScore_tag\" ></span>
+\t\t\t                          </a>
+\t\t\t                        </div>
+\t\t\t                        <div class=\"block_content\">
+\t\t\t                          <h2 class=\"title\" id=\"calculScore_title\"></h2>
+\t\t\t                          <div class=\"byline\" id=\"calculScore_time\">
+\t\t\t                          </div>
+\t\t\t                          <p class=\"excerpt\">
+\t\t\t                          \t\t<center><img id=\"calculScore_lod\" src=\"";
+            // line 47
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("img/lod.gif"), "html", null, true);
+            echo "\" width=\"150\"/> </center>
+\t\t\t                          \t\t<button style=\"display:none\" type=\"button\" id=\"calculScore_show_log\"
+\t\t\t                          \t\t\t\tonclick=\"showLog()\"></button> <br/>
+\t\t\t                          \t\t<textarea id=\"calculScore_log\" rows=\"10\" class=\"form-control\" style=\"display:none\" readonly></textarea>
+\t\t\t                          \t\t<br/>
+\t\t\t                          \t\t<table class=\"table\" id=\"table_scoreTmp\" style=\"display:none\">
+\t\t\t                          \t\t\t<tr>
+\t\t\t                          \t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t                          \t\t\t</tr>
+\t\t\t                          \t\t\t<tbody id=\"calculScore_content\">
+\t\t\t                          \t\t\t</tbody>
+\t\t\t                          \t\t</table>
+
+\t\t\t                          </p>
+\t\t\t                        </div>
+\t\t\t                      </div>
+\t\t\t                    </li>
+\t\t\t                    <li id=\"compScore\" style=\"display:none\">
+\t\t\t                      <div class=\"block\">
+\t\t\t                        <div class=\"tags\">
+\t\t\t                          <a href=\"javascipt:void(0)\" class=\"tag\">
+\t\t\t                            <span id=\"compScore_tag\" ></span>
+\t\t\t                          </a>
+\t\t\t                        </div>
+\t\t\t                        <div class=\"block_content\">
+\t\t\t                          <h2 class=\"title\" id=\"compScore_title\"></h2>
+\t\t\t                          <div class=\"byline\" id=\"compScore_time\">
+\t\t\t                          </div>
+\t\t\t                          <p class=\"excerpt\" id=\"compScore_content\">
+\t\t\t                          \t\t<center><img id=\"compScore_lod\" src=\"";
+            // line 90
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\AssetExtension')->getAssetUrl("img/lod.gif"), "html", null, true);
+            echo "\" width=\"150\"/> </center>
+\t\t\t                          </p>
+\t\t\t                        </div>
+\t\t\t                      </div>
+\t\t\t                    </li>
+\t\t\t                  </ul>
+
+\t\t\t               ";
+        } else {
+            // line 98
+            echo "\t\t\t\t\t\t  
+\t\t\t\t\t\t \t\t\t\t\t\t  
 \t\t\t\t\t\t\t<form id=\"addScoreFrom\" action=\"";
-        // line 25
-        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("pages_addScore");
-        echo "\" method=\"post\" enctype=\"multipart/form-data\" data-parsley-validate class=\"form-horizontal form-label-left\" >
+            // line 100
+            echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("pages_addScore");
+            echo "\" method=\"post\" enctype=\"multipart/form-data\" data-parsley-validate class=\"form-horizontal form-label-left\" >
 \t\t\t\t\t\t\t  <div class=\"form-group\">
 \t\t\t\t\t\t\t\t<label class=\"control-label col-md-3 col-sm-3 col-xs-12\" id=\"addScoreFrom_problem\" for=\"id_problem\"><span class=\"required\">*</span>
 \t\t\t\t\t\t\t\t</label>
@@ -120,12 +221,16 @@ class __TwigTemplate_5be9670dac4b730a3b03a3fd7c32ceac460a7f94302934636c75a97c148
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t  </div>
 \t\t\t\t\t\t\t</form>
-\t\t\t\t\t\t  </div>
+\t\t\t\t\t\t ";
+        }
+        // line 144
+        echo "\t\t\t\t\t\t  </div>
+\t\t\t\t\t\t
 \t\t\t\t\t\t
         <!-- /page content -->
 \t\t";
         
-        $__internal_20820aef9119a68be3c7e35eb9a397015c2b51cf4b4f60663619318097044d24->leave($__internal_20820aef9119a68be3c7e35eb9a397015c2b51cf4b4f60663619318097044d24_prof);
+        $__internal_5f62bca58ad72014e485e82a48641b7b0fd0a5ca500ec79bad1ea13dc0082fd2->leave($__internal_5f62bca58ad72014e485e82a48641b7b0fd0a5ca500ec79bad1ea13dc0082fd2_prof);
 
     }
 
@@ -141,12 +246,23 @@ class __TwigTemplate_5be9670dac4b730a3b03a3fd7c32ceac460a7f94302934636c75a97c148
 
     public function getDebugInfo()
     {
-        return array (  79 => 25,  76 => 24,  70 => 21,  65 => 18,  63 => 17,  60 => 16,  54 => 13,  49 => 10,  47 => 9,  34 => 3,  11 => 1,);
+        return array (  227 => 144,  180 => 100,  176 => 98,  165 => 90,  119 => 47,  101 => 32,  96 => 29,  94 => 28,  91 => 27,  85 => 24,  80 => 21,  78 => 20,  65 => 14,  57 => 11,  48 => 7,  44 => 5,  41 => 4,  35 => 3,  11 => 1,);
     }
 
     public function getSource()
     {
         return "{% extends \"::base.html.twig\" %}\t
+
+  \t{% block onready %}
+  \t\t{% if score is defined %}
+  \t\t\t<script type=\"text/javascript\">
+\t\t  \t\t\$( document ).ready(function() {
+\t\t\t\t    ScoreCaclul(\"{{ score.id }}\", \"{{ path('pages_calculScore') }}\");
+\t\t\t\t});
+  \t\t\t</script>
+\t\t{% endif %}
+
+  \t{% endblock %}
 
   {% block body %}\t\t\t
 \t\t\t\t\t\t  <div class=\"x_title\">
@@ -167,9 +283,73 @@ class __TwigTemplate_5be9670dac4b730a3b03a3fd7c32ceac460a7f94302934636c75a97c148
 \t\t\t\t\t\t\t\t<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span>
 \t\t\t\t\t\t\t\t</button>
 \t\t\t\t\t\t\t\t<strong> <script> document.write(lang.pages.addScoreFrom.success) </script> </strong> [  {{ success }} ]
-\t\t\t\t\t\t\t  </div>
-\t\t\t\t\t\t  {% endif %}
+\t\t\t\t\t\t\t  </div> 
+\t\t\t                  <ul class=\"list-unstyled timeline\" >
+\t\t\t                    <li id=\"calculScore\">
+\t\t\t                      <div class=\"block\">
+\t\t\t                        <div class=\"tags\">
+\t\t\t                          <a href=\"\" class=\"tag\">
+\t\t\t                            <span id=\"calculScore_tag\" ></span>
+\t\t\t                          </a>
+\t\t\t                        </div>
+\t\t\t                        <div class=\"block_content\">
+\t\t\t                          <h2 class=\"title\" id=\"calculScore_title\"></h2>
+\t\t\t                          <div class=\"byline\" id=\"calculScore_time\">
+\t\t\t                          </div>
+\t\t\t                          <p class=\"excerpt\">
+\t\t\t                          \t\t<center><img id=\"calculScore_lod\" src=\"{{ asset('img/lod.gif') }}\" width=\"150\"/> </center>
+\t\t\t                          \t\t<button style=\"display:none\" type=\"button\" id=\"calculScore_show_log\"
+\t\t\t                          \t\t\t\tonclick=\"showLog()\"></button> <br/>
+\t\t\t                          \t\t<textarea id=\"calculScore_log\" rows=\"10\" class=\"form-control\" style=\"display:none\" readonly></textarea>
+\t\t\t                          \t\t<br/>
+\t\t\t                          \t\t<table class=\"table\" id=\"table_scoreTmp\" style=\"display:none\">
+\t\t\t                          \t\t\t<tr>
+\t\t\t                          \t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t\t\t\t\t\t\t\t\t\t\t<th></th>
+\t\t\t                          \t\t\t</tr>
+\t\t\t                          \t\t\t<tbody id=\"calculScore_content\">
+\t\t\t                          \t\t\t</tbody>
+\t\t\t                          \t\t</table>
+
+\t\t\t                          </p>
+\t\t\t                        </div>
+\t\t\t                      </div>
+\t\t\t                    </li>
+\t\t\t                    <li id=\"compScore\" style=\"display:none\">
+\t\t\t                      <div class=\"block\">
+\t\t\t                        <div class=\"tags\">
+\t\t\t                          <a href=\"javascipt:void(0)\" class=\"tag\">
+\t\t\t                            <span id=\"compScore_tag\" ></span>
+\t\t\t                          </a>
+\t\t\t                        </div>
+\t\t\t                        <div class=\"block_content\">
+\t\t\t                          <h2 class=\"title\" id=\"compScore_title\"></h2>
+\t\t\t                          <div class=\"byline\" id=\"compScore_time\">
+\t\t\t                          </div>
+\t\t\t                          <p class=\"excerpt\" id=\"compScore_content\">
+\t\t\t                          \t\t<center><img id=\"compScore_lod\" src=\"{{ asset('img/lod.gif') }}\" width=\"150\"/> </center>
+\t\t\t                          </p>
+\t\t\t                        </div>
+\t\t\t                      </div>
+\t\t\t                    </li>
+\t\t\t                  </ul>
+
+\t\t\t               {% else %}
 \t\t\t\t\t\t  
+\t\t\t\t\t\t \t\t\t\t\t\t  
 \t\t\t\t\t\t\t<form id=\"addScoreFrom\" action=\"{{ path('pages_addScore') }}\" method=\"post\" enctype=\"multipart/form-data\" data-parsley-validate class=\"form-horizontal form-label-left\" >
 \t\t\t\t\t\t\t  <div class=\"form-group\">
 \t\t\t\t\t\t\t\t<label class=\"control-label col-md-3 col-sm-3 col-xs-12\" id=\"addScoreFrom_problem\" for=\"id_problem\"><span class=\"required\">*</span>
@@ -213,10 +393,13 @@ class __TwigTemplate_5be9670dac4b730a3b03a3fd7c32ceac460a7f94302934636c75a97c148
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t  </div>
 \t\t\t\t\t\t\t</form>
+\t\t\t\t\t\t {% endif %}
 \t\t\t\t\t\t  </div>
+\t\t\t\t\t\t
 \t\t\t\t\t\t
         <!-- /page content -->
 \t\t{% endblock %}
-\t";
+\t
+";
     }
 }

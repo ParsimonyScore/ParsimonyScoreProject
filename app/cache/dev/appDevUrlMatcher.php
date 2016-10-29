@@ -194,9 +194,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'PagesBundle\\Controller\\DefaultController::addScoreAction',  '_route' => 'pages_addScore',);
         }
 
-        // pages_contact
-        if ($pathinfo === '/contact') {
-            return array (  '_controller' => 'PagesBundle\\Controller\\DefaultController::contactAction',  '_route' => 'pages_contact',);
+        if (0 === strpos($pathinfo, '/c')) {
+            // pages_calculScore
+            if ($pathinfo === '/calculScore') {
+                return array (  '_controller' => 'PagesBundle\\Controller\\DefaultController::calculScoreAction',  '_route' => 'pages_calculScore',);
+            }
+
+            // pages_contact
+            if ($pathinfo === '/contact') {
+                return array (  '_controller' => 'PagesBundle\\Controller\\DefaultController::contactAction',  '_route' => 'pages_contact',);
+            }
+
         }
 
         // pages_about
