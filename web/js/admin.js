@@ -1,6 +1,6 @@
 var score;
 var msgUrl;
-function ScoreTmp(){
+function Score(){
 	this.page=0;
 	this.url="";
 	this.url_files="";
@@ -8,8 +8,9 @@ function ScoreTmp(){
 	this.showBy=25;
 	this.img=document.getElementById("loading");
 	this.tab;
-	this.all_scors_tmp=[];
+	this.all_scors=[];
 	this.moreScores =true;
+	this.isScoreTMP=false;
 	this.activeMoreScores;
 	
 	// to show scores 
@@ -28,7 +29,7 @@ function ScoreTmp(){
 				else {
 					all_scores= JSON.parse(my_text);	
 					if(all_scores.length==0) obj.moreScores=false;
-					obj.all_scors_tmp=obj.all_scors_tmp.concat(all_scores);
+					obj.all_scors=obj.all_scors.concat(all_scores);
 					obj.showTab();
 					obj.img.style.display="none";
 					obj.page++;
@@ -45,16 +46,19 @@ function ScoreTmp(){
 	this.showTab = function (){
 		this.tab.fnClearTable();
 		var all = [];
-		for(i=0;i<this.all_scors_tmp.length;i++) {
+		for(i=0;i<this.all_scors.length;i++) {
 			var t= [];
-			for(k in this.all_scors_tmp[i]) {
+			for(k in this.all_scors[i]) {
 				if(k!="id") {
-					if(k=="file_name") t.push('<center><a href="#" id="file_'+this.all_scors_tmp[i]["id"]+'" title="'+this.all_scors_tmp[i][k]+'"  onclick="score.getDataFile(\''+this.all_scors_tmp[i][k]+'\', \''+this.all_scors_tmp[i]["id"]+'\' )"><span class="fa fa-file-text" ></span></a></center>');
-					else t.push(this.all_scors_tmp[i][k]);
+					if(k=="file_name") t.push('<center><a href="#" id="file_'+this.all_scors[i]["id"]+'" title="'+this.all_scors[i][k]+'"  onclick="score.getDataFile(\''+this.all_scors[i][k]+'\', \''+this.all_scors[i]["id"]+'\' )"><span class="fa fa-file-text" ></span></a></center>');
+					else t.push(this.all_scors[i][k]);
 				}
 			} 
-			var options= '<center><a href="javascript:void(0)" onclick="score.addToScores('+i+',1)" title="'+lang.tables.scoreTmp.options.accept+'"><span class="fa fa-check"></span></a>&nbsp;&nbsp;';
-			options +='<a href="javascript:void(0)" onclick="score.addToScores('+i+',0)" title="'+lang.tables.scoreTmp.options.remove+'"><span class="fa fa-times"></span></a></center>';
+			var options="<center>";
+			if(this.isScoreTMP) {
+				options+='<a href="javascript:void(0)" onclick="score.addToScores('+i+',1)" title="'+lang.tables.score.options.accept+'"><span class="fa fa-check"></span></a>&nbsp;&nbsp;';
+			}
+			options +='<a href="javascript:void(0)" onclick="score.addToScores('+i+',0)" title="'+lang.tables.score.options.remove+'"><span class="fa fa-times"></span></a></center>';
 			t.push(options);
 			all.push(t);
 		}
@@ -86,8 +90,14 @@ function ScoreTmp(){
 					else {
 						var content = document.getElementById("fileContent").innerHTML;
 						content=content.replace("#my_data#", my_text);
-						content=content.replace("#download#", "javascript : window.open('"+obj.url_files+"/"+filename+"', '_blank')");
-						content=content.replace("#close#", "javascript : $('#file_"+id+"').popover('hide')");
+						if(my_text== "File not found") {
+							content=content.replace("#download#", "javascript : void(0)");
+							content=content.replace("#close#", "javascript : $('#file_"+id+"').popover('hide')");
+						}
+						else {
+							content=content.replace("#download#", "javascript : window.open('"+obj.url_files+"/"+filename+"', '_blank')");
+							content=content.replace("#close#", "javascript : $('#file_"+id+"').popover('hide')");
+						}
 						a.setAttribute("data-content", content);
 						$("#file_"+id).popover("show"); 
 					}
@@ -105,8 +115,8 @@ function ScoreTmp(){
 		accept =1 -> add the score
 	*/
 	this.addToScores= function(line, accept){
-		var message= (accept==1) ? lang.tables.scoreTmp.messages.accept :  lang.tables.scoreTmp.messages.remove;
-		var my_score = this.all_scors_tmp[line];
+		var message= (accept==1) ? lang.tables.score.messages.accept :  lang.tables.score.messages.remove;
+		var my_score = this.all_scors[line];
 		var obj=this;
 		if(confirm(message)) {
 			$.ajax({
@@ -119,7 +129,7 @@ function ScoreTmp(){
 						alert(my_text);
 					}
 					else {
-						obj.all_scors_tmp.splice(line, 1);
+						obj.all_scors.splice(line, 1);
 						obj.showTab();
 					}
 				},
@@ -179,7 +189,7 @@ function getMessagesNotSeen(url){
 						// date
 						all_messages =all_messages.replace("#time#",  getMyDate(messages[i].send_date));
 					}
-					var tmp = document.getElementById("msg").innerHTML;
+					var  tmp= document.getElementById("msg").innerHTML;
 					document.getElementById("msg").innerHTML= all_messages+tmp;
 				}
 			}
@@ -216,4 +226,15 @@ function getNbrMessagesNotSeen(messages){
 		if(!messages[i].seen) nbr++; 
 	}
 	return nbr;
+}
+
+
+// to put style to add user form 
+
+function addUserFormStyle(){
+	var f=document.getElementById("fos_user_registration_form");
+	var alldivs = f.getElementsByTagName("div");
+	for(i=0;i<alldivs.length;i++) {
+		alldivs[0].className="form-group";
+	}
 }

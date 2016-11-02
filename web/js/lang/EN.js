@@ -16,8 +16,8 @@ var lang ={
 		},
 		
 		"tables" : {
-			"scoreTmp" : {
-				"title": "",
+			"score" : {
+				"title": "All scores",
 				"th" : ["Problem","K","L","R","N","G","B","S","RN","RG","RB","NB","NG","GB","Data file"],
 				"disc" : ["","K : the number of sequences", "L : length of sequence", "", "","","","","","","","","","","" ],
 				"options" : {
@@ -30,7 +30,10 @@ var lang ={
 				}
 			},
 			"messages" : {
-				"th" : ["From", "Receive"],
+				"th" : ["From", "Receive"]
+			},
+			"users" : {
+				"th" : ["Name", "Email", "Last login", "File loaded", "Option"]
 			}
 		},
 		
@@ -94,6 +97,22 @@ var lang ={
 			"compScore" : {
 				"tag" : "Compare the score",
 				"title" : ""
+			},
+			"scores" : {
+				"title" : "All scores",
+				"addOne" : "Add a score",
+				"addMany" : "Add many scores",
+				"addOneScoreForm_title" : "Add a score",
+				"addOneScoreForm_name" : "Problem",
+				"addOneScoreForm_submit" : "Add",
+				"insertionForm_title" : "browse a file",
+				"insertionForm_submit" : "Add"
+			},
+			"users" : {
+				"title" : "All users"
+			},
+			"addUserForm" : {
+				"submit" : "Add"
 			}
 			
 		}

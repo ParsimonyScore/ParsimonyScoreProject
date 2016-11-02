@@ -16,42 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class AdminController extends Controller
 {
     
-    // add one score to the DB
-    function addScore($name,$k,$l,$r,$n,$g,$b,$s,&$doctrine) {
-                $score = new Score();
-                $score->setProblem($name);
-                $score->setK($k);
-                $score->setL($l);
-                $score->setR($r);
-                $score->setN($n);
-                $score->setG($g);
-                $score->setB($b);
-                $score->setS($s);
-              
-                if($r != 0) {  // RN - RG - RB
-                    $score->setRn(($r-$n)/$r*100);
-                    $score->setRg(($r-$g)/$r*100);
-                    $score->setRb(($r-$b)/$r*100);
-                } else {
-                    $score->setRn(0);
-                    $score->setRg(0);
-                    $score->setRb(0);
-                }
-
-                if($n != 0) {  // NB - NG
-                    $score->setNb(($n-$b)/$n*100);
-                    $score->setNg(($n-$g)/$n*100);
-                } else {
-                    $score->setNb(0);
-                    $score->setNg(0);
-                }
-
-                if($g !=0) $score->setGb(($g-$b)/$g*100); // GB
-                else $score->setGb(0);
-
-                $doctrine->persist($score);
-                $doctrine->flush();
-    }
     
     /**
      * @Route("/")
@@ -273,24 +237,12 @@ class AdminController extends Controller
 		}			
 	}
 	
-	/*
-		function to get data from file 
-		return string
-	*/
-	private function getDataFromFile($filename) {
-		$path_name=__DIR__."/../../../web/files/data/".$filename;
-		if(file_exists($path_name)) {
-			return file_get_contents($path_name);
-		}
-		return "File not found";
-	}
     
-         /**
+    /**
      * @Route("/insertion",  name="insertion")
-     
-     parse the file submitted by the administrator and saves its contents in the table "score"
      */
     
+    // parse the file submitted by the administrator and saves its contents in the table "score"
     public function insertionAction(Request $request)
     {
      
@@ -345,44 +297,73 @@ class AdminController extends Controller
     
     
     /**
-     * @Route("/all" , name="allScores")
+     * @Route("/scores" , name="admin_allScores")
      */
-    public function listeScoresAction()
+    public function listeScoresAction(Request $request)
     {
-       $scores = $this->getDoctrine()->getRepository('PagesBundle:Score')->findBy([], ['problem' => 'ASC']);
-
-       return $this->render('AdminBundle:Default:listeScore.html.twig',array('scores' => $scores));
+        $doctrine = $this->getDoctrine()->getManager();
+        $scoreRepo = $doctrine->getRepository('PagesBundle:Score');
+        $admin = $this->container->get('security.token_storage')->getToken()->getUser();
+        $serializer = $this->container->get('serializer');
+    
+        if($request->isMethod('POST')) {
+            try{
+                $page= $request->request->get("page");
+                $show= $request->request->get("show");
+                $filename= $request->request->get("filename");
+                if($filename!=null) {
+                    return new Response($this->getDataFromFile($filename)); 
+                }
+                else if($page!=null && $show!=null) {
+                    $scores = $scoreRepo->findBy(array(), array(), $show, ($page*$show));
+                    $myres="[";
+                    $i= sizeof($scores);
+                    foreach($scores as $score) {
+                        $myres .=$serializer->serialize($score, 'json',SerializationContext::create()->setSerializeNull(true));
+                        $i--;
+                        if($i>=1) $myres .= ",";
+                    }
+                    $myres.="]";
+                    return new Response($myres); 
+                }
+                else return new Response("Error : variable(s) required null"); 
+            }catch(\Exception $e) {
+                return new Response("Error : ".$e->getMessage()); 
+            }
+        }
+        else return $this->render('AdminBundle:Default:listeScore.html.twig');
     }
     
     
     
     /**
-     * @Route("/rm_scor/{Id}" , name="removeScore")
-     
-     Delete the score from the database
+     * @Route("/rm_score" , name="admin_removeScore")
      */
-    public function rmScoreAction($Id)
+
+    // Delete the score from the database
+    public function rmScoreAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $score = $em->getRepository('PagesBundle:Score')->find($Id);
-
+        $id= $request->request->get("id");
+        $score = $em->getRepository('PagesBundle:Score')->find($id);
         if (!$score) {
             throw $this->createNotFoundException(
-                'Score introuvable'
+                'Score not found'
             );
         }
-
+        $path_name=__DIR__."/../../../web/files/data/".$score->getFileName();  
+        if(file_exists($path_name)) unlink($path_name);        
         $em->remove($score);
         $em->flush();
 
-        return $this->redirectToRoute('allScores');
+        return $this->redirectToRoute('admin_allScores');
     }
     
     /**
     * @Route("/add",name ="add_score")
-    
-    add score to the database
     */   
+
+    // add score to the database
     public function add_score(Request $request){
              
            try{
@@ -403,6 +384,55 @@ class AdminController extends Controller
 				return new Response("Error : ".$e->getMessage()); 
            }
       
+    }
+
+    /*
+        function to get data from file 
+        return string
+    */
+    private function getDataFromFile($filename) {
+        $path_name=__DIR__."/../../../web/files/data/".$filename;
+        if(file_exists($path_name)) {
+            return file_get_contents($path_name);
+        }
+        return "File not found";
+    }
+
+    // add one score to the DB
+    private function addScore($name,$k,$l,$r,$n,$g,$b,$s,&$doctrine) {
+                $score = new Score();
+                $score->setProblem($name);
+                $score->setK($k);
+                $score->setL($l);
+                $score->setR($r);
+                $score->setN($n);
+                $score->setG($g);
+                $score->setB($b);
+                $score->setS($s);
+              
+                if($r != 0) {  // RN - RG - RB
+                    $score->setRn(($r-$n)/$r*100);
+                    $score->setRg(($r-$g)/$r*100);
+                    $score->setRb(($r-$b)/$r*100);
+                } else {
+                    $score->setRn(0);
+                    $score->setRg(0);
+                    $score->setRb(0);
+                }
+
+                if($n != 0) {  // NB - NG
+                    $score->setNb(($n-$b)/$n*100);
+                    $score->setNg(($n-$g)/$n*100);
+                } else {
+                    $score->setNb(0);
+                    $score->setNg(0);
+                }
+
+                if($g !=0) $score->setGb(($g-$b)/$g*100); // GB
+                else $score->setGb(0);
+
+                $doctrine->persist($score);
+                $doctrine->flush();
     }
    
 }
