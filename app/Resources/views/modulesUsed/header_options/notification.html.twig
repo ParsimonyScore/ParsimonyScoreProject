@@ -15,6 +15,21 @@
   </ul>
 </li>
 
+<li role="presentation" class="dropdown">
+  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+    <i class="fa fa-bell-o"></i>
+    <span class="badge bg-green" id="notifCount"></span>
+  </a>
+  <ul id="notif" class="dropdown-menu list-unstyled msg_list" role="menu">
+    <li>
+      <div class="text-center">
+          <img  src="{{ asset('img/bell.gif') }}" width="200" data-toggle="tooltip" title="Nothing here" />
+      </div>
+    </li>  
+  </ul>
+</li>
+
+<!-- Message example -->
 <div id="msg_example" style="display:none">
 	<li>
 		  <a href="{{ path('admin_message') }}?id=#id#">
@@ -28,4 +43,20 @@
 			</span>
 		  </a>
 	</li>
+</div>
+
+<!-- Notification example -->
+<div id="notif_example" style="display:none">
+  <li>
+      <a href="javascript: updateNotif('{{ path('admin_notif') }}', #id#)" id="notif_#id#">
+      <span class="image"></span>
+      <span>
+        <span>#user.email# [<small>#user.username#</small>] </span>
+        <span class="time" style="font-size:8px;margin-right: -20px;">#time#</span>
+      </span>
+      <span class="message">
+        #message#
+      </span>
+      </a>
+  </li>
 </div>

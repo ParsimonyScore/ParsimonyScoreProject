@@ -1,5 +1,4 @@
 var score;
-var msgUrl;
 function Score(){
 	this.page=0;
 	this.url="";
@@ -50,7 +49,10 @@ function Score(){
 			var t= [];
 			for(k in this.all_scors[i]) {
 				if(k!="id") {
-					if(k=="file_name") t.push('<center><a href="#" id="file_'+this.all_scors[i]["id"]+'" title="'+this.all_scors[i][k]+'"  onclick="score.getDataFile(\''+this.all_scors[i][k]+'\', \''+this.all_scors[i]["id"]+'\' )"><span class="fa fa-file-text" ></span></a></center>');
+					if(k=="file_name" && this.all_scors[i][k]!=null) 
+						t.push('<center><a href="#" id="file_'+this.all_scors[i]["id"]+'" title="'+this.all_scors[i][k]+'"  onclick="score.getDataFile(\''+this.all_scors[i][k]+'\', \''+this.all_scors[i]["id"]+'\' )"><span class="fa fa-file-text" ></span></a></center>');
+					else if(k=="file_name")
+						t.push('');
 					else t.push(this.all_scors[i][k]);
 				}
 			} 
@@ -162,7 +164,6 @@ function Score(){
 
 // function to get messages not seen yet
 function getMessagesNotSeen(url){
-	msgUrl= url;
 	$.ajax({
 		url: url,
 		type: "POST",
@@ -200,6 +201,72 @@ function getMessagesNotSeen(url){
 	});	
 }
 
+// function to get notifications not seen yet
+function getNotificationsNotSeen(url){
+	$.ajax({
+		url: url,
+		type: "POST",
+		data: "",
+		dataType : 'html',
+		success: function (my_text) {
+			if(my_text.indexOf("Error")!=-1){
+				alert(my_text);
+			}
+			else {
+				var notifications= JSON.parse(my_text);	
+				if(notifications.length>0) {
+					document.getElementById("notifCount").innerHTML=notifications.length;
+					var notif_html = document.getElementById("notif_example").innerHTML;
+					var all_notifs="";
+					for(var i=0;i<notifications.length;i++) {
+						all_notifs += notif_html;
+						all_notifs =all_notifs.replace("#id#",notifications[i].id);
+						all_notifs =all_notifs.replace("#id#",notifications[i].id);
+						all_notifs =all_notifs.replace("#user.username#",notifications[i].user.username);
+						all_notifs =all_notifs.replace("#user.email#",notifications[i].user.email);
+						all_notifs =all_notifs.replace("#message#",notifications[i].message);
+						// date
+						all_notifs =all_notifs.replace("#time#",  getMyDate(notifications[i].date_notif));
+					}
+					document.getElementById("notif").innerHTML= all_notifs;
+				}
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				alert("Status: " + textStatus+ " Error: " + errorThrown); 
+		} 		
+	});	
+}
+
+// function to update notification seen by admin
+function updateNotif(url, id){
+	$.ajax({
+		url: url,
+		type: "GET",
+		data: "id="+id,
+		dataType : 'html',
+		success: function (my_text) {
+			if(my_text.indexOf("Error")!=-1){
+				alert(my_text);
+			}
+			else {
+				nbr= parseInt(document.getElementById("notifCount").innerHTML.trim());
+				nbr--;
+				if(nbr>0) document.getElementById("notifCount").innerHTML=nbr;
+				else {
+					document.getElementById("notifCount").innerHTML="";
+					document.getElementById("notif").innerHTML="<center><img src='/ParsimonyScoreProject/web/img/bell.gif' width='200'/></center>";
+				}
+				document.getElementById("notif_"+id).style.display="none";
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				alert("Status: " + textStatus+ " Error: " + errorThrown); 
+		} 		
+	});	
+
+}
+
 // function to get date from string datetime php
 
 function getMyDate(send_date){
@@ -232,9 +299,23 @@ function getNbrMessagesNotSeen(messages){
 // to put style to add user form 
 
 function addUserFormStyle(){
-	var f=document.getElementById("fos_user_registration_form");
-	var alldivs = f.getElementsByTagName("div");
-	for(i=0;i<alldivs.length;i++) {
-		alldivs[0].className="form-group";
+	var cs= ["fos_user_registration_form"];
+	for(id in cs) {
+		if(document.getElementById(cs[id]) !=null){
+			var f=document.getElementById(cs[id]);
+			var alldivs = f.getElementsByTagName("div");
+			for(var i=0;i<alldivs.length;i++) {
+				alldivs[i].className="form-group";
+				var labels = alldivs[i].getElementsByTagName("label");
+				var inputs= alldivs[i].getElementsByTagName("input");
+
+				for(var j=0;j<labels.length;j++) {
+					labels[j].className="control-label col-md-3 col-sm-3 col-xs-12";
+				}
+				for(var j=0;j<inputs.length;j++) {
+					inputs[j].className="form-control col-md-7 col-xs-12";
+				}
+			}
+		}
 	}
 }

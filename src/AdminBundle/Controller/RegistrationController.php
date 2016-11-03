@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
-
+use AdminBundle\Entity\Notification;
 class RegistrationController extends BaseController
 {
     public function registerAction(Request $request)
@@ -70,6 +70,7 @@ class RegistrationController extends BaseController
     public function checkAction(Request $request, $token)
     {
         $userManager = $this->get('fos_user.user_manager');
+        $doctrine = $this->getDoctrine()->getManager();
 
         $user = $userManager->findUserByConfirmationToken($token);
         
@@ -101,6 +102,13 @@ class RegistrationController extends BaseController
                 $user->setEnabled(true);
                 
                 $userManager->updateUser($user);
+                //add notification to super admin
+                $notif= new Notification();
+                $notif->setUser($user);
+                $notif->setDateNotif(new \DateTime("now"));
+                $notif->setMessage("Has registered");
+                $doctrine->persist($notif);
+                $doctrine->flush();
 
                 return $this->redirect($this->generateUrl('fos_user_profile_show') );
             }

@@ -21,6 +21,7 @@
 		apply_lang();
 		{% if is_granted('ROLE_ADMIN') %}
 			getMessagesNotSeen("{{ path('admin_messages') }}");
+			getNotificationsNotSeen("{{ path('admin_notif') }}");
 		{% endif %}
         
         $('.file_style').jfilestyle({

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use JMS\Serializer\SerializationContext;
 use PagesBundle\Entity\ScoreTMP;
 use PagesBundle\Entity\Score;
+use AdminBundle\Entity\Notification;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -22,7 +23,7 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AdminBundle:Default:index.html.twig');
+        return $this->render('PagesBundle:Default:index.html.twig');
     }
 
     /**
@@ -98,6 +99,7 @@ class AdminController extends Controller
     public function acceptScoreTmpAction(Request $request){ 
     	$doctrine = $this->getDoctrine()->getManager();
 		$scoreTMPRepo = $doctrine->getRepository('PagesBundle:ScoreTMP');
+        $notifRepo = $doctrine->getRepository('AdminBundle:Notification');
     	$admin = $this->container->get('security.token_storage')->getToken()->getUser();
 		$serializer = $this->container->get('serializer');	
 		try{
@@ -107,6 +109,14 @@ class AdminController extends Controller
 				$score_tmp= $scoreTMPRepo->find($id);
 				if($score_tmp != null) {
 					if($accept==1) {
+                        //add notification if admin is not the superadmin
+                        if(!$admin->hasRole('ROLE_SUPER_ADMIN')) {
+                            $notif= new Notification();
+                            $notif->setUser($admin);
+                            $notif->setDateNotif(new \DateTime("now"));
+                            $notif->setMessage("Has added the score ".$score_tmp->getProblem()." to list of scores");
+                            $doctrine->persist($notif);
+                        }
 						// add the score_tmp to scores 
 						$score = new Score();
 						$vars= (array) $score_tmp;
@@ -384,6 +394,51 @@ class AdminController extends Controller
 				return new Response("Error : ".$e->getMessage()); 
            }
       
+    }
+
+
+    /**
+     * @Route("/notif", name="admin_notif")
+     */
+    public function notificationsAction(Request $request){ 
+        $doctrine = $this->getDoctrine()->getManager();
+        $notifRepo = $doctrine->getRepository('AdminBundle:Notification');
+        $admin = $this->container->get('security.token_storage')->getToken()->getUser();
+        $serializer = $this->container->get('serializer');  
+        try{
+            if($admin->hasRole('ROLE_SUPER_ADMIN')) {
+                if($request->isMethod('GET')) {
+                    // here to update notif when the admin see it
+                    $id=$request->query->get("id");
+                    $notif= $notifRepo->find($id);
+                    if($notif!==null) {
+                        $notif->setSeen(true);
+                        $notif->setDateSeen(new \DateTime("now"));
+                        $doctrine->persist($notif);
+                        $doctrine->flush();
+                        return new Response("OK"); 
+                    }
+                }
+                else {
+                    // here to send list of notification not seen yet 
+                    $list_notif = $notifRepo->findBy(array("seen" => false), array('id' => 'desc')); 
+                    $notif="[";  $i=sizeof($list_notif); 
+                    foreach($list_notif as $n) {
+                        $notif.=$serializer->serialize($n, 'json',SerializationContext::create()->setSerializeNull(true));
+                        $i--;
+                        if($i>=1)  $notif.= ",";
+                    } 
+                    $notif.="]"; 
+                    return new Response($notif);     
+                   
+                } 
+
+            }
+            else return new Response("Error : access denied"); 
+        }catch(\Exception $e) {
+            return new Response("Error : ".$e->getMessage()); 
+        }
+            
     }
 
     /*

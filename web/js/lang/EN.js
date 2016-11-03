@@ -59,7 +59,10 @@ var lang ={
 					"username" : "Username", 
 					"password" : "Password"
 				},
-				"keep": "keep my session"
+				"username" : "Username", 
+				"password" : "Password",
+				"keep": "keep my session",
+				"nopass" : "Forgot your password?"
 			},
 			
 			"about" : {
