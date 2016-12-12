@@ -64,7 +64,7 @@ function ScoreCaclul(id, url) {
 				document.getElementById("calculScore_content").innerHTML=tr;
 				document.getElementById("calculScore_lod").style.display="none";
 				document.getElementById("calculScore_show_log").style.display="";
-				document.getElementById("table_scoreTmp").style.display="";
+				document.getElementById("table_score").style.display="";
 				document.getElementById("compScore").style.display="";
 			}
 		},

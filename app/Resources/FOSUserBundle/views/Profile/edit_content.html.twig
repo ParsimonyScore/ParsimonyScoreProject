@@ -1,8 +1,41 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-    </div>
-{{ form_end(form) }}
+<div class="x_title">
+	<h2 id="editProfilForm_title"></h2>
+	<div class="clearfix"></div>
+</div>
+<div class="x_content">
+	{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit form-horizontal form-label-left', 'id': 'editProfilForm' } }) }}
+
+	    <div class="form-group">
+			<label for="fos_user_registration_form_email" class="control-label col-md-3 col-sm-3 col-xs-12 required" id="editProfilForm_email" ></label>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				{{ form_widget(form.email, { 'attr': {'class': 'form-control col-md-7 col-xs-12' } }) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="fos_user_registration_form_username" class="control-label col-md-3 col-sm-3 col-xs-12 required" id="editProfilForm_username" ></label>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				{{ form_widget(form.username, { 'attr': {'class': 'form-control col-md-7 col-xs-12' } }) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="fos_user_registration_form_current_password" class="control-label col-md-3 col-sm-3 col-xs-12 required" id="editProfilForm_currentPassword" ></label>
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				{{ form_widget(form.current_password, { 'attr': {'class': 'form-control col-md-7 col-xs-12' } }) }}
+			</div>
+		</div>
+
+	    <div class="ln_solid"></div>
+		<div class="form-group">
+		    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+		        <button type="submit" id="editProfilForm_submit" class="btn btn-success"></button>
+		    </div>
+		</div>
+
+	    {{ form_rest(form) }}
+	{{ form_end(form) }}
+</div>
+

@@ -79,6 +79,29 @@ var lang ={
 				"error" : "Une erreur s'est produite veuillez réessayer ultérieurement",
 				"success" : "Message envoyé"
 			},
+
+			"addUserForm" : {
+				"title" : "Ajouter un utilisateur",
+				"email" : "Email",
+				"username" : "Nom d'utilisateur",
+				"submit" : "Ajouter"
+			},
+
+			"editProfilForm" : {
+				"title" : "Modifier votre profil",
+				"email" : "Email",
+				"username" : "Nom d'utilisateur",
+				"currentPassword" : "Mot de passe actuel",
+				"submit" : "Envoyer"
+			},
+
+			"editPasswordForm" : {
+				"title" : "Modifier votre mot de passe",
+				"currentPassword" : "Mot de passe actuel",
+				"pass" : "Nouveau mot de passe",
+				"confpass" : "Confirmer votre mot de passe",
+				"submit" : "Submit"
+			},
 			
 			"fileContent" : {
 				"download" : "Télécharger",
@@ -113,8 +136,13 @@ var lang ={
 			"users" : {
 				"title" : "Tous les utilisateurs"
 			},
-			"addUserForm" : {
-				"submit" : "Ajouter"
+			"AlgoInfo" : {
+				"K" : "Le nombre de séquences",
+				"L" : "La lengeur d'une séquence (tous les séquences ont les même longueurs)",
+				"R" : "Le score moyen (plus de 100 exécution) de solutions initiales générées de façon aléatoire",
+				"N" : "Le score de l'arbre obtenu à partir de l'algorithme de neighbor joining (un seul arbre). En bio-informatique, le neighbour joining (ou neighbor joining) est une méthode d'élaboration d'arbres de données phylogénétiques. La méthode neighbor joining se base sur les mêmes principes que les méthodes d'analyse de groupe (cluster analysis), telles que la méthode de UPGMA (qui se base sur les distances génétiques pour construire un arbre phylogénétique). La seule différence de la méthode de neighbor joining est qu'elle tient compte des différences de vitesse d'évolution entre les différentes branches de l'arbre phylogénétique. Cette méthode fournit un arbre non polarisé (non enraciné). Utilisée généralement pour les arbres de données basés sur l'ADN ou les séquences de protéines, l'algorithme requiert la connaissance de la distance entre chaque paire de taxons (par. ex. espèces ou séquences) dans l'arbre.",
+				"G" : "Le score moyen (plus de 100 exécution) de solutions initiales générées avec un algorithme glouton. En informatique, un algorithme glouton (greedy algorithm en anglais, parfois appelé aussi algorithme gourmand) est un algorithme qui suit le principe de faire, étape par étape, un choix optimum local. Dans certains cas cette approche permet d'arriver à un optimum global, mais dans le cas général c'est une heuristique. L'illustration ci-contre montre un cas où ce principe est mis en échec.",
+				"B" : "Le meilleur score connu, considéré comme le score optimal obtenu en utilisant TNT ou SAMPARS"
 			}
 
 		}

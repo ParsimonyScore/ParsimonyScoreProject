@@ -79,6 +79,29 @@ var lang ={
 				"error" : "An error occurred please try again later",
 				"success" : "Message sent"
 			},
+
+			"addUserForm" : {
+				"title" : "Add user",
+				"email" : "Email",
+				"username" : "Username",
+				"submit" : "Add"
+			},
+
+			"editProfilForm" : {
+				"title" : "Edit youre profile",
+				"email" : "Email",
+				"username" : "Username",
+				"currentPassword" : "Current password",
+				"submit" : "Submit"
+			},
+
+			"editPasswordForm" : {
+				"title" : "Edit youre password",
+				"currentPassword" : "Current password",
+				"pass" : "New password",
+				"confpass" : "Confirm password",
+				"submit" : "Submit"
+			},
 			
 			"fileContent" : {
 				"download" : "Download",
@@ -114,8 +137,13 @@ var lang ={
 			"users" : {
 				"title" : "All users"
 			},
-			"addUserForm" : {
-				"submit" : "Add"
+			"AlgoInfo" : {
+				"K" : "The number of sequences",
+				"L" : "The length of a sequence or number of residues (all sequences have the same length)",
+				"R" : "The average score (over 100 runs) of initial solutions generated randomly",
+				"N" : "The score of the tree obtained from the neighbor-joinning algorithm (only one tree). In bioinformatics, neighbor joining is a bottom-up (agglomerative) clustering method for the creation of phylogenetic trees, created by Naruya Saitou and Masatoshi Nei in 1987. Usually used for trees based on DNA or protein sequence data, the algorithm requires knowledge of the distance between each pair of taxa (e.g., species or sequences) to form the tree",
+				"G" : "The average score (over 100 runs) of initial solutions generated with a greedy algorithm. A greedy algorithm is an algorithmic paradigm that follows the problem solving heuristic of making the locally optimal choice at each stage with the hope of finding a global optimum.",
+				"B" : "The best known score, considered as the optimum score obtained by using TNT or SAMPARS"
 			}
 			
 		}

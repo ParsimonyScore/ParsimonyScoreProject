@@ -50,7 +50,7 @@ function Score(){
 			for(k in this.all_scors[i]) {
 				if(k!="id") {
 					if(k=="file_name" && this.all_scors[i][k]!=null) 
-						t.push('<center><a href="#" id="file_'+this.all_scors[i]["id"]+'" title="'+this.all_scors[i][k]+'"  onclick="score.getDataFile(\''+this.all_scors[i][k]+'\', \''+this.all_scors[i]["id"]+'\' )"><span class="fa fa-file-text" ></span></a></center>');
+						t.push('<center><a href="javascript:void(0)" id="file_'+this.all_scors[i]["id"]+'" title="'+this.all_scors[i][k]+'"  onclick="score.getDataFile(\''+this.all_scors[i][k]+'\', \''+this.all_scors[i]["id"]+'\' )"><span class="fa fa-file-text" ></span></a></center>');
 					else if(k=="file_name")
 						t.push('');
 					else t.push(this.all_scors[i][k]);
@@ -276,12 +276,12 @@ function getMyDate(send_date){
 	//var d= new Date(date[0],date[1], date[2], time[0], time[1], time[2]);
 	if(lang.lang=="FR") {
 		if(now.getFullYear()==date[0] && now.getMonth()+1==date[1] && now.getDate() == date[2]) return "Aujourd'hui "+time[0]+":"+time[1];
-		else if(now.getFullYear()==date[0] && now.getMonth()==date[1] && now.getDay() == date[2]-1) return "Hier "+time[0]+":"+time[1];
+		else if(now.getFullYear()==date[0] && now.getMonth()+1==date[1] && now.getDate()-1 == date[2]) return "Hier "+time[0]+":"+time[1];
 		else return "Le "+date[2]+"/"+date[1]+"/"+date[0];
 	}
 	else if(lang.lang=="EN") {
 		if(now.getFullYear()==date[0] && now.getMonth()+1==date[1] && now.getDate() == date[2]) return "Today "+time[0]+":"+time[1];
-		else if(now.getFullYear()==date[0] && now.getMonth()==date[1] && now.getDay() == date[2]-1) return "yesterday "+time[0]+":"+time[1];
+		else if(now.getFullYear()==date[0] && now.getMonth()+1==date[1] && now.getDate() == date[2]-1) return "yesterday "+time[0]+":"+time[1];
 		else return date[0]+"-"+date[1]+"-"+date[2];
 	}
 }
