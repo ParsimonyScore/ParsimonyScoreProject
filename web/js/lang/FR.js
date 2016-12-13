@@ -11,8 +11,8 @@ var lang ={
 		
 		"menu" : {
 				"gest" : [ "Accueil", "À propos", "Contactez-nous" ],
-				"admin" : [ "Accueil","","Profile","Mot de passe","Profile", "Liste des scores", "Liste des scores temporaire", "Déconnexion"],
-				"super_admin" : [ "Accueil","","Profile","Mot de passe","Profile","Ajouter un utilisateur", "Liste des utilisateurs ", "Liste des scores", "Liste des scores temporaire", "Déconnexion"]
+				"admin" : [ "Accueil","","Profile","Mot de passe", "Liste des scores", "Liste des scores temporaire", "Déconnexion"],
+				"super_admin" : [ "Accueil","","Profile","Mot de passe","Ajouter un utilisateur", "Liste des utilisateurs ", "Liste des scores", "Liste des scores temporaire", "Déconnexion"]
 		},
 		
 		"tables" : {
@@ -68,7 +68,7 @@ var lang ={
 			"about" : {
 				"title" :"À propos",
 				"text" : "Ce site est un application web pour la prédiction du score de parcimonie de problèmes en phylogénie.",
-				"devloppers" : "Développer par Ismail ELFAQIR, Adam BENJBARA, et Zakaria LAHYANI."
+				"devloppers" : "Développer par <a href=\"http://elfaqir-ismail.me/\">Ismail ELFAQIR</a>, <a href=\"http://www.doyoubuzz.com/adam-benjbara\">Adam BENJBARA</a>, et <a href=\"http://lahyani-zakaria.com\">Zakaria LAHYANI.</a>"
 			}, 
 			
 			"contactForm" : {

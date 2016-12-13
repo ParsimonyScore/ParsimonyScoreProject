@@ -11,8 +11,8 @@ var lang ={
 		
 		"menu" : {
 				"gest" : [ "Home", "About", "Contact us" ],
-				"admin" : [ "Home","","Profile","Password","Profile", "Scores list", "temporary scores", "Sign out"],
-				"super_admin" : [ "Home","","Profile","Password","Profile","Add new user", "Users list", "Scores list", "Temporary scores", "Sign out"]
+				"admin" : [ "Home","","Profile","Password", "Scores list", "temporary scores", "Sign out"],
+				"super_admin" : [ "Home","","Profile","Password","Add new user", "Users list", "Scores list", "Temporary scores", "Sign out"]
 		},
 		
 		"tables" : {

@@ -151,6 +151,36 @@ class AdminController extends Controller
 	}
 
     /**
+     * @Route("/shearch", name="admin_shearch")
+     */
+    public function shearchAction(Request $request){
+        $doctrine = $this->getDoctrine()->getManager();
+        $scoreRepo = $doctrine->getRepository('PagesBundle:Score');
+        $serializer = $this->container->get('serializer');
+    
+        try{
+            $name= $request->query->get("name");
+            //$name=strtolower($name);
+            if($name!=null) {
+                $scores = $scoreRepo->getScoreLikeName($name);
+                $myres="[";
+                $i= sizeof($scores);
+                foreach($scores as $score) {
+                    $myres .=$serializer->serialize($score, 'json',SerializationContext::create()->setSerializeNull(true));
+                    $i--;
+                    if($i>=1) $myres .= ",";
+                }
+                $myres.="]";
+                return new Response($myres); 
+            }
+            else return new Response("Error : variable(s) required null"); 
+        }catch(\Exception $e) {
+            return new Response("Error : ".$e->getMessage()); 
+        }
+
+    }
+
+    /**
      * @Route("/messages", name="admin_messages")
      */
     public function messagesAction(Request $request){ 
@@ -374,7 +404,7 @@ class AdminController extends Controller
     */   
 
     // add score to the database
-    public function add_score(Request $request){
+    public function addScoreAction(Request $request){
              
            try{
              	$doctrine = $this->getDoctrine()->getManager();

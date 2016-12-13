@@ -1,3 +1,27 @@
+<li class="">
+  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    <i class="fa fa-user"></i> {{ app.user.username }}
+    <span class=" fa fa-angle-down"></span>
+  </a>
+  <ul class="dropdown-menu dropdown-usermenu pull-right">
+    <li>
+      <table>
+        <tr>
+          <td>
+            <span class="fa fa-user fa-5x"></span>
+          </td>
+          <td>
+            <p>&nbsp;&nbsp;Username : {{ app.user.username }}</p>
+            <p>&nbsp;&nbsp;Email : {{ app.user.email }}</p>
+          </td>
+        </tr>
+      </table>
+     
+    </li>
+  </ul>
+</li>
+
+
 <li role="presentation" class="dropdown">
   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
     <i class="fa fa-envelope-o"></i>

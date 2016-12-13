@@ -30,10 +30,14 @@ function apply_lang(){
 			for(x in lang.pages[f]) {
 				if(x=="placeholders") {
 					for(ph in lang.pages[f][x]) {
-						document.getElementById(ph).placeholder=lang.pages[f][x][ph];
+						if(document.getElementById(ph)!=null)
+							document.getElementById(ph).placeholder=lang.pages[f][x][ph];
 					}
 				}
-				else $("#"+f+"_"+x).text(lang.pages[f][x]);
+				else {
+					if(document.getElementById(f+"_"+x)!=null)
+						document.getElementById(f+"_"+x).innerHTML=lang.pages[f][x];
+				}
 			}
 		}		
 	}

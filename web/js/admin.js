@@ -4,6 +4,7 @@ function Score(){
 	this.url="";
 	this.url_files="";
 	this.url_accept_remove="";
+	this.url_shearch="";
 	this.showBy=25;
 	this.img=document.getElementById("loading");
 	this.tab;
@@ -11,7 +12,19 @@ function Score(){
 	this.moreScores =true;
 	this.isScoreTMP=false;
 	this.activeMoreScores;
+	this.score_selected;
 	
+	this.init= function(url, url_accept_remove, url_files, url_shearch){
+	    this.url= url;
+	    this.url_accept_remove= url_accept_remove;
+	    this.url_files= url_files;
+	    this.url_shearch= url_shearch;
+	    this.tab= $('#table_score').DataTable({ "bPaginate": false, "bFilter": false });
+	    this.getScores();
+	    this.tab.on( 'click', 'tr', function () { 
+	      score.score_selected=score.all_scors[score.tab.row(this).index()]; 
+	    });
+	}
 	// to show scores 
 	this.getScores = function(){
 		this.img.style.display="";
@@ -43,7 +56,7 @@ function Score(){
 
 	// function to update table 
 	this.showTab = function (){
-		this.tab.fnClearTable();
+		this.tab.clear();
 		var all = [];
 		for(i=0;i<this.all_scors.length;i++) {
 			var t= [];
@@ -64,7 +77,8 @@ function Score(){
 			t.push(options);
 			all.push(t);
 		}
-		if(all.length>0) this.tab.fnAddData(all); 		
+		for(var i=0;i<all.length;i++) this.tab.row.add(all[i]).draw(true); 	
+			
 	};
 	
 	// function to get file content (data) 
@@ -158,6 +172,42 @@ function Score(){
 			}
 		}
 			
+	};
+
+	// function to sherch for an score by it's name
+
+	this.getScoreByName=function(name){
+		this.img.style.display="";
+		if(name!=null && name.trim()!="" ){
+			var obj=this;
+			$.ajax({
+				url: this.url_shearch,
+				type: "GET",
+				data: "name="+name,
+				dataType : 'html',
+				success: function (my_text) {
+					if(my_text.indexOf("Error")!=-1){
+						alert(my_text);
+					}
+					else {
+						all_scores= JSON.parse(my_text);	
+						obj.moreScores=false;
+						obj.all_scors=all_scores;
+						obj.showTab();
+						obj.img.style.display="none";
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) { 
+						alert("Status: " + textStatus+" Error: " + errorThrown); 
+				} 		
+			});	
+		}
+		else {
+			this.moreScores=true;
+			this.page=0;
+			this.all_scors=[];
+			this.getScores();
+		}
 	};
 			
 }

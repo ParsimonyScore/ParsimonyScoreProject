@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ScoreRepository extends EntityRepository
 {
+
+	public function getScoreLikeName($name) {
+		$query = $this->createQueryBuilder('a')
+               ->where("a.problem LIKE :my_name")
+			   ->setParameter('my_name', '%'.$name.'%')
+               ->getQuery();
+			   
+		return $query->getResult();
+	}
+
 }

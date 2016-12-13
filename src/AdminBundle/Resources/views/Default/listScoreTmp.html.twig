@@ -5,12 +5,9 @@
 	$( document ).ready(function() {
 		score= new Score();
 		score.isScoreTMP=true;
-		score.url= "{{ path('admin_listScoreTmp') }}";
-		score.url_accept_remove= "{{ path('admin_accept_score') }}";
-		score.url_files= "{{ asset('files/data') }}";
-		score.tab= $('#table_score').dataTable({ "bPaginate": false });
-		score.getScores();
-	});	
+		score.init("{{ path('admin_listScoreTmp') }}", "{{ path('admin_removeScore') }}",
+		       "{{ asset('files/data') }}", ""  );
+	}); 
 	</script>
 {% endblock %}
 
