@@ -159,6 +159,52 @@ class DefaultController extends Controller
 	public function aboutAction(Request $request) {
 		return $this->render('PagesBundle:Default:about.html.twig');
 	}
+
+
+
+	/**
+     * @Route("/compareScore", name="admin_compareScore")
+     */
+	public function compareScoreAction(){
+		$scoreRepo = $this->getDoctrine()->getManager()->getRepository('PagesBundle:Score');
+		$score = $scoreRepo->find(1);
+		$delta = 0.5;
+		$gamma = 5;
+
+		$begin = $score->getRn() - $delta; 
+		$end = $score->getRn() + $delta;
+
+		$data  = array();
+
+		while (sizeof($data) < 10) {
+			$data = $scoreRepo->getScores($delta, $gamma, $score);
+			$delta += 0.5;
+			$gamma += 5;
+		}
+
+		$data = $this->rngs($data, $score);
+
+		return new Response(" ".var_dump($score)); 
+	}
+
+	/*
+		function to calcul nrgs
+	*/
+	private function rngs($data, $score) {
+		$cst1 = 0.001;
+		$cst2 = 0.01;
+		$store = array();
+
+		for ($i=0; $i < sizeof($data) ; $i++) { 
+			$store[$i]['data'] = $data[$i];
+			$store[$i]['rngs'] = ( abs($data[$i]->getRn() - $score->getRn()) + $cst1 ) * ( abs($data[$i]->getRg() - $score->getRg()) + $cst1 ) * ( abs($data[$i]->getNg() - $score->getNg()) + $cst1 ) * ( abs($data[$i]->getS() - $score->getS()) + $cst2 ) * ( abs($data[$i]->getK() - $score->getK()) + $cst2 ) * ( abs($data[$i]->getL() - $score->getL()) + $cst2 );
+		}
+
+		return $store;
+	}
+
+
+	
 	
 	// for an unique name for each file
 	private function getCodeForFile(){
