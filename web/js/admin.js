@@ -5,8 +5,9 @@ function Score(){
 	this.url_files="";
 	this.url_accept_remove="";
 	this.url_shearch="";
+    this.url_update_bs="";
 	this.showBy=25;
-	this.img=document.getElementById("loading");
+	this.img;
 	this.tab;
 	this.all_scors=[];
 	this.moreScores =true;
@@ -14,11 +15,13 @@ function Score(){
 	this.activeMoreScores;
 	this.score_selected;
 	
-	this.init= function(url, url_accept_remove, url_files, url_shearch){
+	this.init= function(url, url_accept_remove, url_files, url_shearch,url_update_bs){
 	    this.url= url;
 	    this.url_accept_remove= url_accept_remove;
+        this.img=document.getElementById("loading");
 	    this.url_files= url_files;
 	    this.url_shearch= url_shearch;
+        this.url_update_bs=url_update_bs;
 	    this.tab= $('#table_score').DataTable({ "bPaginate": false, "bFilter": false });
 	    this.getScores();
 	    this.tab.on( 'click', 'tr', function () { 
@@ -77,7 +80,8 @@ function Score(){
 			t.push(options);
 			all.push(t);
 		}
-		for(var i=0;i<all.length;i++) this.tab.row.add(all[i]).draw(true); 	
+		for(var i=0;i<all.length;i++) this.tab.row.add(all[i]).draw(true); 
+        tabload(this.url_update_bs);
 			
 	};
 	
@@ -317,8 +321,9 @@ function updateNotif(url, id){
 
 }
 
-// function to get date from string datetime php
 
+
+// function to get date from string datetime php
 function getMyDate(send_date){
 	var now = Date.now();
 	var date= (send_date.split("T")[0]).split("-"); //2016-10-20 
@@ -369,3 +374,77 @@ function addUserFormStyle(){
 		}
 	}
 }
+
+// to update best score
+function updateBS(url,id,val,my_tr){
+    	$.ajax({
+		url: url,
+		type: "POST",
+		data: "id="+id+"&value="+val,
+		dataType : 'html',
+		success: function (my_text) {
+			if(my_text.indexOf("Error")!=-1){
+				alert(my_text);
+			}
+			else {
+				 var resultat= JSON.parse(my_text);
+
+                 my_tr.children[10].innerHTML = resultat.RB;
+                 my_tr.children[11].innerHTML = resultat.NB;
+                 my_tr.children[13].innerHTML = resultat.GB;
+                
+                 // add animation (in custun.css)
+                 my_tr.children[6].className  = "cellAnim";
+                 my_tr.children[10].className = "cellAnim";
+                 my_tr.children[11].className = "cellAnim";
+                 my_tr.children[13].className = "cellAnim";
+                
+                 setTimeout(function() {
+                      my_tr.children[6].className  = "";
+                      my_tr.children[10].className = "";
+                      my_tr.children[11].className = "";
+                      my_tr.children[13].className = "";
+                 }, 2000);
+                
+			   //  alert("my res: rb " + resultat.RB);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				alert("Status: " + textStatus+ " Error: " + errorThrown); 
+		} 		
+	});	
+}
+
+function updateBScore(val,id,oldVal,url){ 
+    var  td=val.parentElement;
+    var value = val.value;
+    td.innerHTML= value;
+    if( !isNaN(parseFloat(value)) && isFinite(value)){  //  must be number
+        updateBS(url,id,value, td.parentElement);
+    } else {
+         td.innerHTML = oldVal;
+         td.className  = "cellAnimError";
+         setTimeout(function() {
+         td.className  = ""; 
+         },1000);
+    }
+
+}
+        
+// alow to the admin to update the best score  (only)    
+ function tabload(url){
+        $('#table_score td:nth-child(7)').each(function(){
+
+        $(this).css('cursor' , 'pointer');
+        }).click(function () { // click on cell best_score
+            if(!$(this).children().is("input")) {
+                 if(score.score_selected != null) { 
+                    var id=score.score_selected.id;
+                    var oldVal = $(this).html();
+                    var input = $('<input type="text" onblur="updateBScore(this,'+id+','+oldVal+',\''+url+'\')"/>');
+                    input.val(oldVal);
+                    $(this).html(input);
+                }
+            }
+        });
+ }

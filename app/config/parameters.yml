@@ -4,7 +4,7 @@ parameters:
     database_port: null
     database_name: ParsimonyScore
     database_user: root
-    database_password: ismail963
+    database_password: 
     
     mailer_transport: smtp
     mailer_encryption: ssl

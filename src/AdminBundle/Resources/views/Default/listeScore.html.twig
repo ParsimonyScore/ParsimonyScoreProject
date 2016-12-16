@@ -1,14 +1,17 @@
 {% extends "::base.html.twig" %}
 
 {% block onready %}
-  <script>
+<script>
+ score= new Score();
   $( document ).ready(function() {
-    score= new Score();
     score.init("{{ path('admin_allScores') }}", "{{ path('admin_removeScore') }}",
-               "{{ asset('files/data') }}", "{{ path('admin_shearch') }}"  );
+               "{{ asset('files/data') }}", "{{ path('admin_shearch') }}",  "{{ path('admin_updateBS') }}"  );
+    
 
-  }); 
-  </script>
+     
+
+  });           
+</script>
 {% endblock %}
 
 
