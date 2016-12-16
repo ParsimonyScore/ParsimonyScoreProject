@@ -172,7 +172,9 @@ class DefaultController extends Controller
 		$serializer = $this->container->get('serializer');
 
 		if($id!=null) {
-			$score = $scoreTmpRepo->find($id);
+			$is_score_tmp = $request->query->get("isScoreTMP");
+			if($is_score_tmp!=null && $is_score_tmp==0 ) $score = $scoreRepo->find($id);
+			else $score = $scoreTmpRepo->find($id);
 			if($score!=null) {
 				$delta = 0.5;
 				$gamma = 5;

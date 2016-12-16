@@ -22,7 +22,8 @@ var lang ={
 				"disc" : ["","K : the number of sequences", "L : length of sequence", "", "","","","","","","","","","","" ],
 				"options" : {
 					"accept" : "Add score",
-					"remove" : "Remove"
+					"remove" : "Remove",
+					"compare" : "Score compare"
 				},
 				"messages" : {
 					"accept" : "Are you sure about adding the score",

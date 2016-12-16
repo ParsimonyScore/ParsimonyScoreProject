@@ -280,8 +280,7 @@ class AdminController extends Controller
     
     /**
      * @Route("/insertion",  name="insertion")
-     */
-    
+     */ 
     // parse the file submitted by the administrator and saves its contents in the table "score"
     public function insertionAction(Request $request)
     {
@@ -293,7 +292,6 @@ class AdminController extends Controller
 				$file=$_FILES['file_data'];
 				$error="";
 				if ($file['size'] != 0) {
-                   
                     $type_file=substr($file['name'],strrpos($file['name'],'.'));
                     if(strpos($type_file,"txt")!==false || strpos($type_file,"csv")!==false){
                             $path_name=__DIR__."/../../../web/files/data/".basename($file['name']);
@@ -333,6 +331,58 @@ class AdminController extends Controller
 				return new Response("Error : ".$e->getMessage()); 
            }
 			
+    }
+    
+    /**
+     * @Route("/best_score" , name="admin_updateBS")
+     */
+    public function updateBestScoreAction(Request $request)
+    {
+        $doctrine = $this->getDoctrine()->getManager();
+        $scoreRepo = $doctrine->getRepository('PagesBundle:Score');
+        $admin = $this->container->get('security.token_storage')->getToken()->getUser();
+        $serializer = $this->container->get('serializer');
+    
+        if($request->isMethod('POST')) {
+            try{
+                $id= $request->request->get("id");
+                $b= $request->request->get("value");
+                if($id!=null && $b!=null) {
+                   
+                    $score = $scoreRepo->find($id);
+                    $r = $score->getR();
+                    $n = $score->getN();
+                    $g = $score->getG();
+                    
+                   if($r != 0) {   //RB
+                        $score->setRb(intval(($r-$b)/$r*100));
+                    } else {
+                        $score->setRb(0);
+                    }
+
+                    if($n != 0) {  // NB
+                        $score->setNb(intval(($n-$b)/$n*100));
+                    } else {
+                        $score->setNb(0);
+                    }
+
+                    if($g !=0) $score->setGb(intval(($g-$b)/$g*100)); // GB
+                    else $score->setGb(0); 
+                    
+                    $score->setB($b);//B
+
+                    $doctrine->persist($score);
+                    $doctrine->flush();
+                    
+                     $myres =   '{ "RB": ' . $score->getRb() . ', "NB": '. $score->getNb() .  ', "GB": '.$score->getGb() .'}';
+                    return new Response($myres); 
+                }
+                else return new Response("Error : variable(s) required null"); 
+            }catch(\Exception $e) {
+                return new Response("Error : ".$e->getMessage()); 
+            }
+        }
+        else return $this->render('AdminBundle:Default:listeScore.html.twig');
     }
     
     
@@ -392,7 +442,7 @@ class AdminController extends Controller
             );
         }
         $path_name=__DIR__."/../../../web/files/data/".$score->getFileName();  
-        if(file_exists($path_name)) unlink($path_name);        
+        if($score->getFileName()!==null && file_exists($path_name)) unlink($path_name);        
         $em->remove($score);
         $em->flush();
 

@@ -1,0 +1,64 @@
+.cellAnim {
+    animation-name: animCell;
+    animation-duration: 2s;
+}
+
+ 
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes animCell {
+    0%   {background-color: inherit;}
+    25%  {background-color: skyblue;}
+    50%  {background-color: white;}
+    75%  {background-color: skyblue;}
+    100% {background-color: inherit;}
+}
+
+/* Standard syntax */
+@keyframes animCell {
+    0%   {background-color: inherit;}
+    25%  {background-color: skyblue;}
+    50%  {background-color: white;}
+    75%  {background-color: skyblue;}
+    100% {background-color: inherit;}
+}
+
+
+
+.cellAnimError {
+    animation-name: animCellErr;
+    animation-duration: 1s;
+}
+
+ 
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes animCellErr {
+    0%   {background-color: inherit;}
+    50%  {background-color: red;}
+    100%  {background-color: inherit;}
+ 
+}
+
+/* Standard syntax */
+@keyframes animCellErr {
+    0%   {background-color: inherit;}
+    50%  {background-color: red;}
+    100% {background-color: inherit;}
+}
+  
+
+#compScore .modal-dialog {
+  width: auto;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  margin-left: 200px;
+}
+
+#compScore .modal-content {
+  height: auto;
+  width:auto;
+  min-height: 100%;
+  border-radius: 0;
+}

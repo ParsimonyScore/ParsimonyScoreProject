@@ -1,14 +1,13 @@
 {% extends "::base.html.twig" %}
 
 {% block onready %}
-  <script>
+<script>
+ score= new Score();
   $( document ).ready(function() {
-    score= new Score();
     score.init("{{ path('admin_allScores') }}", "{{ path('admin_removeScore') }}",
-               "{{ asset('files/data') }}", "{{ path('admin_shearch') }}"  );
-
-  }); 
-  </script>
+               "{{ asset('files/data') }}", "{{ path('admin_shearch') }}",  "{{ path('admin_updateBS') }}" , "{{ path('pages_compareScore') }}" );    
+  });           
+</script>
 {% endblock %}
 
 
@@ -85,14 +84,7 @@
                     </tbody>
                   </table>
                   <center><img id="loading" src="{{ asset('img/lod.gif') }}" width="150" /></center>
-                  <!-- div to show file content -->
-                  <div id="fileContent" style="display:none"> 
-                    <div class="col-md-12 col-sm-12 col-xs-12" >
-                      <textarea id="fileContent_data" rows="10" class="form-control" target="_blank" readonly>#my_data#</textarea>
-                      <button type="button" id="fileContent_download" onclick="#download#" class="btn btn-primary" style="margin-top:5px"></button>
-                      <button type="button" id="fileContent_close" onclick="#close#" class="btn btn-primary" style="margin-top:5px"></button>
-                    </div>
-                  </div>
+                  {% include 'AdminBundle:Default:show_file_content_and_compare_score_divs.html.twig' %}
                 </div>
             </div>
          </div>
@@ -210,6 +202,8 @@
                 </div>
             </div>
      <!-- end modal -->
+
+
   </div>
 {% endblock %}
 
