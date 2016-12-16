@@ -29,6 +29,9 @@ var lang ={
 					"remove" : "Etes-vous sur de vouloir supprimer le score"
 				}
 			},
+			"compare" : {
+				"th" : ["Problème","K","L","R","N","G","B","S","RN","RG","RB","NB","NG","GB","RNGS"]
+			},
 			"messages" : {
 				"th" : ["Par", "Reçu le"]
 			},

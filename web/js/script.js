@@ -26,7 +26,7 @@ function showLog(){
 	}
 }
 
-function ScoreCaclul(id, url) {
+function ScoreCaclul(id, url, url_cmp) {
 	$.ajax({
 		url: url,
 		type: "POST",
@@ -65,7 +65,42 @@ function ScoreCaclul(id, url) {
 				document.getElementById("calculScore_lod").style.display="none";
 				document.getElementById("calculScore_show_log").style.display="";
 				document.getElementById("table_score").style.display="";
-				document.getElementById("compScore").style.display="";
+				ScoreCompare(score, url_cmp);
+			}
+		},
+		error: function(XMLHttpRequest, textStatus, errorThrown) { 
+				alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+		} 		
+	});	
+}
+
+
+function ScoreCompare(score, url) {
+	document.getElementById("compScore").style.display="";
+	var table= $("#table_compare").DataTable({"bSort": false});
+	$.ajax({
+		url: url,
+		type: "GET",
+		data: "id="+score.id,
+		dataType : 'html',
+		success: function (my_text) {
+			if(my_text.indexOf("Error")!=-1){
+				alert(my_text);
+			}
+			else {
+				document.getElementById("table_compare").style.display="";
+				var result = JSON.parse(my_text);
+				for(var i=0;i<10;i++) {
+					var tr=[];
+					for(k in result[""+i].score) {
+						if(k!="id" && k!="file_name") {
+							tr.push(result[i].score[k]);
+						}
+					}
+					tr.push(result[i].rngs);
+					table.row.add(tr).draw(true); 	
+				}
+				document.getElementById("compScore_lod").style.display="none";
 			}
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) { 

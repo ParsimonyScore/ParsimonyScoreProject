@@ -163,28 +163,33 @@ class DefaultController extends Controller
 
 
 	/**
-     * @Route("/compareScore", name="admin_compareScore")
+     * @Route("/compareScore", name="pages_compareScore")
      */
-	public function compareScoreAction(){
+	public function compareScoreAction(Request $request){
+		$id= $request->query->get("id");
 		$scoreRepo = $this->getDoctrine()->getManager()->getRepository('PagesBundle:Score');
-		$score = $scoreRepo->find(1);
-		$delta = 0.5;
-		$gamma = 5;
+		$scoreTmpRepo = $this->getDoctrine()->getManager()->getRepository('PagesBundle:ScoreTMP');
+		$serializer = $this->container->get('serializer');
 
-		$begin = $score->getRn() - $delta; 
-		$end = $score->getRn() + $delta;
-
-		$data  = array();
-
-		while (sizeof($data) < 10) {
-			$data = $scoreRepo->getScores($delta, $gamma, $score);
-			$delta += 0.5;
-			$gamma += 5;
+		if($id!=null) {
+			$score = $scoreTmpRepo->find($id);
+			if($score!=null) {
+				$delta = 0.5;
+				$gamma = 5;
+				$begin = $score->getRn() - $delta; 
+				$end = $score->getRn() + $delta;
+				$data  = array();
+				while (sizeof($data) < 10) {
+					$data = $scoreRepo->getScores($delta, $gamma, $score);
+					$delta += 0.5;
+					$gamma += 5;
+				}
+				$data = $this->rngs($data, $score);
+				return new Response($serializer->serialize($data, 'json',SerializationContext::create()->setSerializeNull(true))); 
+			}
+			return new Response("Error : Score not found");
 		}
-
-		$data = $this->rngs($data, $score);
-
-		return new Response(" ".var_dump($score)); 
+		return new Response("Error : id null"); 
 	}
 
 	/*
@@ -196,13 +201,17 @@ class DefaultController extends Controller
 		$store = array();
 
 		for ($i=0; $i < sizeof($data) ; $i++) { 
-			$store[$i]['data'] = $data[$i];
+			$store[$i]['score'] = $data[$i];
 			$store[$i]['rngs'] = ( abs($data[$i]->getRn() - $score->getRn()) + $cst1 ) * ( abs($data[$i]->getRg() - $score->getRg()) + $cst1 ) * ( abs($data[$i]->getNg() - $score->getNg()) + $cst1 ) * ( abs($data[$i]->getS() - $score->getS()) + $cst2 ) * ( abs($data[$i]->getK() - $score->getK()) + $cst2 ) * ( abs($data[$i]->getL() - $score->getL()) + $cst2 );
 		}
-
+		uasort($store, function ($a, $b) {
+		    if ($a['rngs'] == $b['rngs']) {
+		        return 0;
+		    }
+		    return ($a['rngs'] < $b['rngs']) ? -1 : 1;
+		});
 		return $store;
 	}
-
 
 	
 	
@@ -272,7 +281,7 @@ class DefaultController extends Controller
 		$score->setR($data[2]);
 		$score->setN($data[3]);
 		$score->setG($data[4]);
-		$score->setB(max($data[6],$data[7],$data[8],$data[9]));
+		$score->setB(0);
 		$score->setS($data[5]);
 		$score->setRN((($data[2]-$data[3]))/$data[2]*100);
 		$score->setRG((($data[2]-$data[4]))/$data[2]*100);

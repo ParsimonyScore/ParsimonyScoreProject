@@ -6,7 +6,7 @@ function Score(){
 	this.url_accept_remove="";
 	this.url_shearch="";
 	this.showBy=25;
-	this.img=document.getElementById("loading");
+	this.img;
 	this.tab;
 	this.all_scors=[];
 	this.moreScores =true;
@@ -20,11 +20,17 @@ function Score(){
 	    this.url_files= url_files;
 	    this.url_shearch= url_shearch;
 	    this.tab= $('#table_score').DataTable({ "bPaginate": false, "bFilter": false });
+	    this.img=document.getElementById("loading");
 	    this.getScores();
-	    this.tab.on( 'click', 'tr', function () { 
-	      score.score_selected=score.all_scors[score.tab.row(this).index()]; 
+	    this.tab.on( 'click', 'td', function () { 
+	       score.score_selected=score.all_scors[score.tab.row(this.parentElement).index()]; 
+	       if(score.tab.column(this).index()==6) {
+	       		if(this.innerHTML.inde)
+	       		this.innerHTML="<input type='text'/>";
+	       }
 	    });
 	}
+
 	// to show scores 
 	this.getScores = function(){
 		this.img.style.display="";
