@@ -13,10 +13,15 @@ use Doctrine\ORM\EntityRepository;
 class ScoreRepository extends EntityRepository
 {
 
-	public function getScoreLikeName($name) {
+	public function getScoreLikeVAl($val, $option) {
+		if($option=="problem") {
+			$req="a.".$option." LIKE :my_val";
+			$val='%'.$val.'%';
+		}
+		else $req="a.".$option."=:my_val OR a.".$option." BETWEEN ".intval($val)." AND ".(intval($val)+1)." ";
 		$query = $this->createQueryBuilder('a')
-               ->where("a.problem LIKE :my_name")
-			   ->setParameter('my_name', '%'.$name.'%')
+               ->where($req)
+			   ->setParameter('my_val', $val)
                ->getQuery();
 			   
 		return $query->getResult();

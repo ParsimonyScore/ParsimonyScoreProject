@@ -77,7 +77,7 @@ function ScoreCaclul(id, url, url_cmp) {
 
 function ScoreCompare(score, url) {
 	document.getElementById("compScore").style.display="";
-	var table= $("#table_compare").DataTable({"bSort": false});
+	var table= $("#table_compare").DataTable({});
 	$.ajax({
 		url: url,
 		type: "GET",

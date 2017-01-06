@@ -13,7 +13,7 @@ Pour pouvoir utiliser l'application :
 
 2. importé le projet au sein de votre éspace de travail
 
-3. Créer une base de données nommée ParsimonyScore, puis importer le fichier database/parsimonyscore.sql
+3. Créer une base de données nommée ParsimonyScore, puis importer le fichier database/ParsimonyScore.sql
 
 4. modifier les parammétres de connections au base de données MySQL ( app/config/parameters.yml )
 

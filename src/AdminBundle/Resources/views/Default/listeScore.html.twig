@@ -56,9 +56,23 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-                <input type="text" onchange="score.getScoreByName(this.value)" 
+                <input type="text" onchange="score.search(this.value)" 
                   id="score_search" class="form-control" style="width:25%;float:left;margin-right:5px;" placeholder="Search" />
-                <a href="javascript:void(0)" onclick="score.getScoreByName($('#score_search').val())"><i class="fa fa-search fa-2x" ></i></a>
+                <select id="score_search_option" class="form-control" style="width:100px;float:left;margin-right:5px;">
+                    <option selected="" value="problem">Problem</option>
+                    <option value="r">R</option>
+                    <option value="n">N</option>
+                    <option value="g">G</option>
+                    <option value="b">B</option>
+                    <option value="s">S</option>
+                    <option value="rn">RN</option>
+                    <option value="rg">RG</option>
+                    <option value="rb">RB</option>
+                    <option value="nb">NB</option>
+                    <option value="ng">NG</option>
+                    <option value="gb">GB</option>
+                </select>
+                <a href="javascript:void(0)" onclick="score.search($('#score_search').val())"><i class="fa fa-search fa-2x" ></i></a>
                 <table class="table table-striped table-bordered" id="table_score">
                     <thead>
                       <tr>

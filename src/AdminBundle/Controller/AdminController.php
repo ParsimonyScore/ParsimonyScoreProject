@@ -159,10 +159,11 @@ class AdminController extends Controller
         $serializer = $this->container->get('serializer');
     
         try{
-            $name= $request->query->get("name");
+            $val= $request->query->get("val");
+            $option = $request->query->get("option");
             //$name=strtolower($name);
-            if($name!=null) {
-                $scores = $scoreRepo->getScoreLikeName($name);
+            if($val!=null && $option!=null) {
+                $scores = $scoreRepo->getScoreLikeVal($val,$option);
                 $myres="[";
                 $i= sizeof($scores);
                 foreach($scores as $score) {

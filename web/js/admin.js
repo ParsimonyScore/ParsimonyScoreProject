@@ -10,6 +10,7 @@ function Score(){
 	this.showBy=25;
 	this.img;
 	this.tab;
+	this.table_compare;
 	this.all_scors=[];
 	this.moreScores =true;
 	this.isScoreTMP=false;
@@ -25,6 +26,8 @@ function Score(){
         this.url_update_bs=url_update_bs;
         this.url_compare= url_compare;
 	    this.tab= $('#table_score').DataTable({ "bPaginate": false, "bFilter": false });
+	    this.table_compare= $("#table_compare").dataTable({ 
+		});
 	    this.img=document.getElementById("loading");
 	    this.getScores();
 	    this.tab.on( 'click', 'td', function () { 
@@ -187,16 +190,18 @@ function Score(){
 			
 	};
 
-	// function to sherch for an score by it's name
+	// function to sherch for an score 
 
-	this.getScoreByName=function(name){
+	this.search=function(val){
 		this.img.style.display="";
-		if(name!=null && name.trim()!="" ){
+		this.moreScores=false;
+		this.tab.clear().draw(true);
+		if(val!=null && val.trim()!="" ){
 			var obj=this;
 			$.ajax({
 				url: this.url_shearch,
 				type: "GET",
-				data: "name="+name,
+				data: "val="+val+"&option="+$('#score_search_option').val(),
 				dataType : 'html',
 				success: function (my_text) {
 					if(my_text.indexOf("Error")!=-1){
@@ -226,7 +231,7 @@ function Score(){
 	// function to compare score to another 
 	this.ScoreCompare = function(id) {
 		var obj=this;
-		var table= $("#table_compare").DataTable({"bSort": false});
+		this.table_compare.fnClearTable();
 		var istmpscore = (this.isScoreTMP) ? 1 : 0;
 		$.ajax({
 			url: this.url_compare,
@@ -238,6 +243,7 @@ function Score(){
 					alert(my_text);
 				}
 				else {
+					//alert(obj.url_compare+"?id="+id+"&isScoreTMP="+istmpscore);
 					document.getElementById("table_compare").style.display="";
 					var result = JSON.parse(my_text);
 					for(var i=0;i<10;i++) {
@@ -248,11 +254,13 @@ function Score(){
 							}
 						}
 						tr.push(result[i].rngs);
-						table.row.add(tr).draw(true); 	
+						//obj.table_compare.row.add(tr).draw(true); 
+						obj.table_compare.fnAddData(tr);	
 					}
 					document.getElementById("compScore_lod").style.display="none";
-					obj.all_scors.splice(line, 1);
-					obj.showTab();
+					obj.ScoreComparePlot(result);
+					/*obj.all_scors.splice(line, 1);
+					obj.showTab();*/
 				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -260,6 +268,53 @@ function Score(){
 			} 		
 		});	
 	}
+
+	this.ScoreComparePlot= function(result){
+
+		var all= [];
+		for(var i=0;i<10;i++) {
+			all.push([i+1, parseFloat(result[i].rngs)]);
+			//else all.push([i+2, parseFloat(result[i].rngs)]);
+		}
+		var data = [
+			{ data: all, points: { symbol: "circle" } }
+			//{ data: generate(4, 0.9), points: { symbol: "diamond" } }
+		];
+
+		$.plot("#compare_plot", data, {
+			series: {
+				points: {
+					show: true,
+					radius: 3
+				}
+			},
+			grid: {
+				hoverable: true
+			}
+		});
+
+		$("<div id='tooltip'></div>").css({
+			position: "absolute",
+			display: "none",
+			border: "1px solid #fdd",
+			padding: "2px",
+			"background-color": "#fee",
+			opacity: 0.80
+		}).appendTo("#plot_compare");
+		$("#compare_plot").bind("plothover", function (event, pos, item) {
+			if (item) {
+				var x = item.datapoint[0].toFixed(2),
+					y = item.datapoint[1].toFixed(2);
+
+				$("#tooltip").html(result[parseInt(x)-1].score["problem"]+" with RNGS = " + y)
+					.css({top: item.pageY-$("body").scrollTop, left: item.pageX-500})
+					.fadeIn(200);
+			} else {
+				$("#tooltip").hide();
+			}
+		});
+		$(".flot-y-axis .flot-tick-label").css({ left:-50 });
+	};
 			
 }
 

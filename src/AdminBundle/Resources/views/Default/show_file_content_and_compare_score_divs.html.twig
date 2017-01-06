@@ -19,30 +19,44 @@
           </div>
           <div class="modal-body">
           	<div class="row">
-				<center><img id="compScore_lod" src="{{ asset('img/lod.gif') }}" width="150"/> </center>
-				<table class="table table-striped table-bordered" id="table_compare" style="display:none" >
-					<thead>
-						<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
+
+                <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                  <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tab_compare"  role="tab" data-toggle="tab" aria-expanded="true">Table</a></li>
+                    <li role="presentation" class=""><a href="#plot_compare" role="tab" data-toggle="tab" aria-expanded="false">Plot</a></li>
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="tab_compare" aria-labelledby="home-tab">
+						<center><img id="compScore_lod" src="{{ asset('img/lod.gif') }}" width="150"/> </center>
+						<table class="table table-striped table-bordered" id="table_compare" style="display:none" >
+							<thead>
+								<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="plot_compare" aria-labelledby="profile-tab">
+                    	<center><div id="compare_plot" style="width:1000px; height:500px"></div></center>
+                    </div>
+                  </div>
+                </div>
             </div>
           </div>
             
