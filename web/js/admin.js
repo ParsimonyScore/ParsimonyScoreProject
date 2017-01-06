@@ -221,10 +221,10 @@ function Score(){
 			});	
 		}
 		else {
-			this.moreScores=true;
 			this.page=0;
 			this.all_scors=[];
 			this.getScores();
+			this.moreScores=true;
 		}
 	};
 
@@ -258,7 +258,7 @@ function Score(){
 						obj.table_compare.fnAddData(tr);	
 					}
 					document.getElementById("compScore_lod").style.display="none";
-					obj.ScoreComparePlot(result);
+					ScoreComparePlot(result);
 					/*obj.all_scors.splice(line, 1);
 					obj.showTab();*/
 				}
@@ -268,53 +268,6 @@ function Score(){
 			} 		
 		});	
 	}
-
-	this.ScoreComparePlot= function(result){
-
-		var all= [];
-		for(var i=0;i<10;i++) {
-			all.push([i+1, parseFloat(result[i].rngs)]);
-			//else all.push([i+2, parseFloat(result[i].rngs)]);
-		}
-		var data = [
-			{ data: all, points: { symbol: "circle" } }
-			//{ data: generate(4, 0.9), points: { symbol: "diamond" } }
-		];
-
-		$.plot("#compare_plot", data, {
-			series: {
-				points: {
-					show: true,
-					radius: 3
-				}
-			},
-			grid: {
-				hoverable: true
-			}
-		});
-
-		$("<div id='tooltip'></div>").css({
-			position: "absolute",
-			display: "none",
-			border: "1px solid #fdd",
-			padding: "2px",
-			"background-color": "#fee",
-			opacity: 0.80
-		}).appendTo("#plot_compare");
-		$("#compare_plot").bind("plothover", function (event, pos, item) {
-			if (item) {
-				var x = item.datapoint[0].toFixed(2),
-					y = item.datapoint[1].toFixed(2);
-
-				$("#tooltip").html(result[parseInt(x)-1].score["problem"]+" with RNGS = " + y)
-					.css({top: item.pageY-$("body").scrollTop, left: item.pageX-500})
-					.fadeIn(200);
-			} else {
-				$("#tooltip").hide();
-			}
-		});
-		$(".flot-y-axis .flot-tick-label").css({ left:-50 });
-	};
 			
 }
 

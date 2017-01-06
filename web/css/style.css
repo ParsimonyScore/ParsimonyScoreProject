@@ -46,7 +46,16 @@
     50%  {background-color: red;}
     100% {background-color: inherit;}
 }
-  
+ 
+
+ /* Important part */
+.compare_modal .modal-dialog{
+    overflow-x: initial !important
+}
+.compare_modal .modal-body{
+    width:auto;
+    overflow-x: auto;
+} 
 
 #compScore .modal-dialog {
   width: auto;
@@ -62,3 +71,9 @@
   min-height: 100%;
   border-radius: 0;
 }
+
+
+
+
+
+

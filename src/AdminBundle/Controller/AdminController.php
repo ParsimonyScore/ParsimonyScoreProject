@@ -134,7 +134,8 @@ class AdminController extends Controller
 					}
 					else {
 						// remove the data file
-						unlink(__DIR__."/../../../web/files/data/".$score_tmp->getFileName());
+                        if(file_exists(__DIR__."/../../../web/files/data/".$score_tmp->getFileName()))
+						  unlink(__DIR__."/../../../web/files/data/".$score_tmp->getFileName());
 					}
 					// remove the score_tmp
 					$doctrine->remove($score_tmp);

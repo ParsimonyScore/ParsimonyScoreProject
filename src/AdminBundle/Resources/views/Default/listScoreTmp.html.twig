@@ -5,7 +5,7 @@
 	$( document ).ready(function() {
 		score= new Score();
 		score.isScoreTMP=true;
-		score.init("{{ path('admin_listScoreTmp') }}", "{{ path('admin_removeScore') }}",
+		score.init("{{ path('admin_listScoreTmp') }}", "{{ path('admin_accept_score') }}",
 		       "{{ asset('files/data') }}", "", "", "{{ path('pages_compareScore') }}" );
 	});
 
@@ -25,7 +25,7 @@
 	          <div class="x_title">
 	            <div class="clearfix"></div>
 	          </div>
-	          <div class="x_content">
+	          <div class="x_content" id="ScoreDivContent" >
 				<table class="table table-striped table-bordered" id="table_score">
 					<thead>
 						<tr>
